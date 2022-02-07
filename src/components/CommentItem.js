@@ -16,7 +16,7 @@ const CommentItem = ({ kid }) => {
   useEffect(() => {
     kid && getComment(kid).then((data) => data && setComment(data));
   }, []);
-
+  console.log(comment);
   const Hidden = () => {
     setTextBox(!textBox);
   };

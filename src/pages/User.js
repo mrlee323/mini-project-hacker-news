@@ -39,7 +39,7 @@ const ComentBox = styled(ListBox)`
   }
 `;
 
-const Users = ({ user = { id: 'norvig', items: 1678930422 } }) => {
+const User = ({ user = { id: 'norvig', items: 1678930422 } }) => {
   return (
     <UsersBlock>
       <UserBox>
@@ -62,4 +62,4 @@ const Users = ({ user = { id: 'norvig', items: 1678930422 } }) => {
   );
 };
 
-export default Users;
+export default User;

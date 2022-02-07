@@ -5,6 +5,7 @@ import UserInfo from './common/UserInfo';
 import { ReactComponent as Arrow } from '../assets/arrow_up.svg';
 import { useState, useEffect } from 'react';
 import { getComment } from '../services/API';
+import unHexCode from '../utils/unHexCode';
 
 const CoCommentBoxBlock = styled.div`
   box-sizing: border-box;
@@ -66,6 +67,7 @@ const Text = styled.div`
   line-height: 1.5;
   color: ${({ theme }) => theme.userName};
   text-align: left;
+  word-break: break-all;
 `;
 
 const CoCommentBox = (props) => {
@@ -102,9 +104,7 @@ const CoCommentBox = (props) => {
               />
             </User>
             <Text style={{ display: textBox === false ? 'none' : ' ' }}>
-              {id}
-              <br />
-              {text}
+              {unHexCode(text)}
             </Text>
           </CoCommentBoxBlock>
           {kids !== undefined &&

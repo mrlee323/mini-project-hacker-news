@@ -4,6 +4,7 @@ import { IconPointTime } from './common/PointTime';
 import UserInfo from './common/UserInfo';
 import { ReactComponent as Arrow } from '../assets/arrow_up.svg';
 import { useEffect } from 'react';
+import unHexCode from '../utils/unHexCode';
 
 const CommentBoxBlock = styled.div`
   width: 21.9rem;
@@ -62,6 +63,7 @@ const Text = styled.div`
   font-size: 0.9rem;
   line-height: 1.5;
   color: ${({ theme }) => theme.userName};
+  word-break: break-all;
 `;
 
 const CommentBox = (props) => {
@@ -86,7 +88,7 @@ const CommentBox = (props) => {
             />
           </User>
           <Text style={{ display: textBox === false ? 'none' : ' ' }}>
-            {text}
+            {unHexCode(text)}
           </Text>
         </CommentBoxBlock>
       )}

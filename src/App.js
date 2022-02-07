@@ -7,7 +7,7 @@ import New from './pages/New';
 import Ask from './pages/Ask';
 import Job from './pages/Job';
 import About from './pages/About';
-import Users from './pages/Users';
+import User from './pages/User';
 import Comment from './pages/Comment';
 import NotFound from './pages/NotFound';
 import TopPost from './pages/TopPost';
@@ -24,7 +24,7 @@ function App() {
           <Route path="post" element={<TopPost />} />
           <Route path="user" element={<TopUser />} />
         </Route>
-        <Route path="users/:username" element={<Users />} />
+        <Route path="user/:username" element={<User />} />
         <Route path="new" element={<New />} />
         <Route path="show" element={<Show />} />
         <Route path="ask" element={<Ask />} />
