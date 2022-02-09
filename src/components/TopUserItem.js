@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Rank = styled.ul`
@@ -26,25 +28,35 @@ const Rank = styled.ul`
       background: #eaf4f8;
       color: #202020;
     }
+    .id {
+      color: ${({ theme }) => theme.textColor};
+    }
   }
 `;
 
 const TopUserItem = ({ post, index }) => {
-  const ranks = [1, 2, 3, 4];
+  const users = useSelector((state) => state.user.users);
+
   return (
     <Rank>
-      {ranks.map((rank) => (
-        <li className="data" key={index}>
-          <div className="ranking">
-            {(rank === 1 && '🥇') ||
-              (rank === 2 && '🥈') ||
-              (rank === 3 && '🥉')}
-            <span>{rank}</span>
-          </div>
-          <div>id</div>
-          <div className="karma">karma</div>
-        </li>
-      ))}
+      {users &&
+        users.slice(0, 50).map((user, index) => (
+          <li className="data" key={index}>
+            <div className="ranking">
+              {(index + 1 === 1 && '🥇') ||
+                (index + 1 === 2 && '🥈') ||
+                (index + 1 === 3 && '🥉')}
+              <span>{index + 1}</span>
+            </div>
+            <NavLink
+              to={`/user/${user.id}/submission`}
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="id">{user.id}</div>
+            </NavLink>
+            <div className="karma">{user.karma}</div>
+          </li>
+        ))}
     </Rank>
   );
 };

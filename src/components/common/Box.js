@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as GitHubIcon } from '../../assets/github.svg';
+import UrlIcon from './UrlIcon';
 
 const ListBoxBlock = styled.div`
   width: 21.9rem;
@@ -48,7 +49,6 @@ const CardBoxBlock = styled.div`
   box-sizing: border-box;
 
   h3 {
-    margin-top: 0.375rem;
     height: 2.7rem;
     font-weight: 600;
     font-size: 0.875rem;
@@ -59,17 +59,23 @@ const CardBoxBlock = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    margin-bottom: 0.9rem;
+    margin-bottom: 2.6rem;
+    ${(props) =>
+      props.url !== undefined &&
+      css`
+        margin-top: 0.7rem;
+        margin-bottom: 0.9rem;
+      `};
   }
   a {
     text-decoration: none;
   }
 `;
 
-export const CardBox = ({ children, ...rest }) => {
+export const CardBox = ({ children, url, ...rest }) => {
   return (
-    <CardBoxBlock {...rest}>
-      <GitHubIcon />
+    <CardBoxBlock url={url} {...rest}>
+      {url && <UrlIcon url={url} />}
       {children}
     </CardBoxBlock>
   );

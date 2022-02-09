@@ -3,8 +3,12 @@ import TodayTitle from './TodayTitle';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import { IconPointTime } from '../common/PointTime';
-import Url from '../common/Url';
+import urlSlice from '../../utils/urlSlice';
 import { JobCategory } from '../common/JobCategory';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const TodayJobBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -13,7 +17,7 @@ const TodayJobBlock = styled(Responsive)`
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    padding: 1.25rem;
+    padding: 1.25rem 0 1.25rem 1.25rem;
     ::-webkit-scrollbar {
       display: none;
     }
@@ -21,7 +25,6 @@ const TodayJobBlock = styled(Responsive)`
       flex-shrink: 0;
       width: 13.75rem;
       height: 10.9rem;
-      margin-right: 1rem;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
         0px 3px 6px rgba(0, 0, 0, 0.05);
       border-radius: 0.7rem;
@@ -58,38 +61,36 @@ const TodayJob = ({
   url = 'https://www.paperspace.com/careers#open-positions',
   title = 'Bitmovin (YC S15) Is Hiring Software Engineers in Support in EMEA',
 }) => {
+  const array = [1, 2, 3, 4, 5];
   return (
     <TodayJobBlock>
       <TodayTitle link={'/job'}>Today's Job</TodayTitle>
-      <div className="job">
-        <div className="list">
-          <JobCategory title={title} />
-          <div className="title">
-            Reverie Labs (YC W18) is hiring senior software engineers to tackle
-            cancer
-          </div>
-          {url && <div className="url">{Url(url)}</div>}
-          <Time />
-        </div>
-        <div className="list">
-          <JobCategory title={title} />
-          <div className="title">
-            Reverie Labs (YC W18) is hiring senior software engineers to tackle
-            cancer
-          </div>
-          <div className="url">replit.com</div>
-          <Time />
-        </div>
-        <div className="list">
-          <JobCategory title={title} />
-          <div className="title">
-            Reverie Labs (YC W18) is hiring senior software engineers to tackle
-            cancer
-          </div>
-          <div className="url">replit.com</div>
-          <Time />
-        </div>
-      </div>
+      <Swiper
+        slidesPerView={1.6}
+        // loop={true}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
+        // modules={[Autoplay]}
+        className="mySwiper"
+      >
+        {array.map((i) => (
+          <SwiperSlide>
+            <div className="job">
+              <div className="list">
+                <JobCategory title={title} />
+                <div className="title">
+                  Reverie Labs (YC W18) is hiring senior software engineers to
+                  tackle cancer
+                </div>
+                {url && <div className="url">{urlSlice(url)}</div>}
+                <Time />
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </TodayJobBlock>
   );
 };

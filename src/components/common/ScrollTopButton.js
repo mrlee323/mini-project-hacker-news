@@ -41,6 +41,7 @@ const ScrollTopButton = ({ position }) => {
 
   return (
     <Button
+      className="button"
       onClick={scrollToTop}
       style={{ display: visible ? 'inline' : 'none' }}
     >

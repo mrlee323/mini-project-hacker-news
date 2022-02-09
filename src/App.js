@@ -13,8 +13,27 @@ import NotFound from './pages/NotFound';
 import TopPost from './pages/TopPost';
 import TopUser from './pages/TopUser';
 import Header from './components/Header';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTopData } from './modules/top';
+import { getUserData } from './modules/user';
+import UserSubmission from './pages/UserSubmission';
+import UserComment from './pages/UserComment';
+import UserFavorite from './pages/UserFavorite';
+import { getShowData } from './modules/show';
+import { getNewData } from './modules/news';
 
 function App() {
+  const dispatch = useDispatch();
+  const totalData = useSelector((state) => state);
+  useEffect(() => {
+    // dispatch(getShowData());
+    dispatch(getTopData());
+    dispatch(getUserData());
+    // dispatch(getNewData());
+    return totalData;
+  }, [dispatch]);
+
   return (
     <>
       <Header />
@@ -24,13 +43,17 @@ function App() {
           <Route path="post" element={<TopPost />} />
           <Route path="user" element={<TopUser />} />
         </Route>
-        <Route path="user/:username" element={<User />} />
+        <Route path="/user/:username" element={<User />}>
+          <Route path="submission" element={<UserSubmission />} />
+          <Route path="comment" element={<UserComment />} />
+          <Route path="favorite" element={<UserFavorite />} />
+        </Route>
         <Route path="new" element={<New />} />
         <Route path="show" element={<Show />} />
         <Route path="ask" element={<Ask />} />
         <Route path="job" element={<Job />} />
         <Route path="about" element={<About />} />
-        <Route path="comment" element={<Comment />} />
+        <Route path="comment/:id" element={<Comment />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

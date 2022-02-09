@@ -5,7 +5,7 @@ import UserInfo from './common/UserInfo';
 import { ReactComponent as Arrow } from '../assets/arrow_up.svg';
 import { useState, useEffect } from 'react';
 import { getComment } from '../services/API';
-import unHexCode from '../utils/unHexCode';
+import replaceText from '../utils/replaceText';
 
 const CoCommentBoxBlock = styled.div`
   box-sizing: border-box;
@@ -104,7 +104,7 @@ const CoCommentBox = (props) => {
               />
             </User>
             <Text style={{ display: textBox === false ? 'none' : ' ' }}>
-              {unHexCode(text)}
+              {replaceText(text)}
             </Text>
           </CoCommentBoxBlock>
           {kids !== undefined &&

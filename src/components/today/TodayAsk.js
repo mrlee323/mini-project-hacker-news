@@ -21,18 +21,16 @@ const TodayAskBlock = styled(Responsive)`
   }
 `;
 
-const TodayAsk = ({
-  title = 'Ask HN: alfladlsms dhsmfeh qkatoseka  lfladlsms dhsmfeh qkat',
-}) => {
+const TodayAsk = () => {
   return (
     <TodayAskBlock>
-      <TodayTitle link={'/ask'}>Today's Ask</TodayTitle>
+      {/* <TodayTitle link={'/ask'}>Today's Ask</TodayTitle>
       <div className="ask">
         <TitleColor title={title} />
       </div>
       <div className="ask">
         <TitleColor title={title} />
-      </div>
+      </div> */}
     </TodayAskBlock>
   );
 };

@@ -8,21 +8,23 @@ import TodayUser from '../components/today/TodayUser';
 import TodayShow from '../components/today/TodayShow';
 import TodayAsk from '../components/today/TodayAsk';
 import TodayJob from '../components/today/TodayJob';
+import { useSelector } from 'react-redux';
 
 const HomeBlock = styled(Responsive)`
   background: ${({ theme }) => theme.topbackColor};
 `;
 
 const Home = () => {
+  const today = useSelector((state) => state);
   return (
     <section className="home">
       <HomeBlock>
         <Banner style={{ width: '24.4rem' }} />
         <ScrollTopButton position={2900} />
-        <TodayTop />
+        <TodayTop todayTop={today.top.tops} />
         <TodayNew />
-        <TodayUser />
-        <TodayShow />
+        <TodayUser todayUser={today.user.users} />
+        <TodayShow todayShow={today.show.shows} />
         <TodayAsk />
         <TodayJob />
       </HomeBlock>

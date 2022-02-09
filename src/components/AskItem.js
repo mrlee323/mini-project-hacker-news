@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Comment } from './common/Comment';
 import { PointTime } from './common/PointTime';
-import { Ago } from './common/Time';
+import { agoTime } from '../utils/time';
 import UserInfo from './common/UserInfo';
 
 const AskItemBlock = styled.div`
@@ -87,7 +87,7 @@ const AskItem = ({
         </p>
         <div className="times">
           <div />
-          <p className="time">{Ago(time)}2 minutes ago</p>
+          <p className="time">{agoTime(time)}2 minutes ago</p>
         </div>
         <User>
           <div className="user">
@@ -115,7 +115,7 @@ const AskItem = ({
         </p>
         <div className="times">
           <div />
-          <p className="time">{Ago(time)}2 minutes ago</p>
+          <p className="time">{agoTime(time)}2 minutes ago</p>
         </div>
         <User>
           <div className="user">

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TodayTitle from './TodayTitle';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import { ReactComponent as Github } from '../../assets/github.svg';
 import { IconPointTime } from '../common/PointTime';
 import UserInfo from '../common/UserInfo';
 import { Comment } from '../common/Comment';
-
+import random from '../../utils/random';
+import TitleColor from '../common/TitleColor';
+import UrlIcon from '../common/UrlIcon';
 const TodayShowBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
   margin-bottom: 0.75rem;
@@ -59,35 +60,48 @@ const User = styled.div`
   justify-content: space-between;
   height: 2.7rem;
 `;
-const TodayShow = () => {
+const TodayShow = ({ todayShow }) => {
+  const [randomArray, setRandomArray] = useState([1, 2, 3, 4, 5]);
+
+  const onRandom = () => {
+    setRandomArray(random(todayShow));
+  };
+
   return (
     <TodayShowBlock>
-      <TodayTitle link={'/show'}>Today's Show</TodayTitle>
+      <TodayTitle link={'/show'} onRandom={onRandom}>
+        Today's Show
+      </TodayTitle>
       <div className="show">
-        <div className="list">
-          <Github className="github" />
-          <div className="title">
-            Show HN: Mercury:Publish Jupyter Notebook as web app by adding YAML
-            header
-          </div>
-          <IconPointTime style={{ borderBottom: '1px solid #DFDFDF' }} />
-          <User>
-            <UserInfo />
-            <Comment />
-          </User>
-        </div>
-        <div className="list">
-          <Github className="github" />
-          <div className="title">
-            Show HN: Mercury:Publish Jupyter Notebook as web app by adding YAML
-            header
-          </div>
-          <IconPointTime style={{ borderBottom: '1px solid #DFDFDF' }} />
-          <User>
-            <UserInfo />
-            <Comment />
-          </User>
-        </div>
+        {todayShow.length > 60 &&
+          randomArray.map((index) => (
+            <div className="list" key={index}>
+              <UrlIcon url={todayShow[index].url} />
+              <div className="title">
+                <a
+                  href={todayShow[index].url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="url-icon"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <TitleColor title={todayShow[index].title} />
+                </a>
+              </div>
+              <IconPointTime
+                style={{ borderBottom: '1px solid #DFDFDF' }}
+                score={todayShow[index].score}
+                time={todayShow[index].time}
+              />
+              <User>
+                <UserInfo id={todayShow[index].by} />
+                <Comment
+                  count={todayShow[index].descendants}
+                  to={`comment/${todayShow[index].id}`}
+                />
+              </User>
+            </div>
+          ))}
       </div>
     </TodayShowBlock>
   );

@@ -12,5 +12,6 @@ const GlobalStyle = createGlobalStyle`
     --gray300: #dfdfdf;
     --orange: #ed702d;
   }
+ 
 `;
 export default GlobalStyle;

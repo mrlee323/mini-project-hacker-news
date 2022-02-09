@@ -10,7 +10,7 @@ import { ReactComponent as SetMode } from '../assets/mode_light_dark.svg';
 import Logo from '../assets/logo.svg';
 import { changeTheme } from '../modules/theme';
 import Responsive from './common/Responsive';
-import { Time } from './common/Time';
+import { getTime } from '../utils/time';
 import NavMenu from './NavMenu';
 
 const Fixed = styled.div`
@@ -77,7 +77,7 @@ const Spacer = styled.div`
 `;
 
 const Header = () => {
-  const [hour, min] = Time();
+  const [hour, min] = getTime();
   const time = `${hour}:${min < 10 ? `0${min}` : min}`;
 
   const dispatch = useDispatch();

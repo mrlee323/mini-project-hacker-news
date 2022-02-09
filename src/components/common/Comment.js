@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as Comments } from '../../assets/comments.svg';
 
@@ -12,11 +13,13 @@ const CommentBlock = styled.div`
     margin-left: 0.3rem;
   }
 `;
-export const Comment = ({ count, ...rest }) => {
+export const Comment = ({ count, link, ...rest }) => {
   return (
-    <CommentBlock {...rest}>
-      <Comments />
-      <div className="count">240{count}</div>
-    </CommentBlock>
+    <NavLink to={`${link}`} style={{ textDecoration: 'none' }}>
+      <CommentBlock {...rest}>
+        <Comments />
+        <div className="count">{count}</div>
+      </CommentBlock>
+    </NavLink>
   );
 };

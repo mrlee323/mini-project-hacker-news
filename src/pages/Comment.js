@@ -5,6 +5,10 @@ import { ReactComponent as UserIcon } from '../assets/user.svg';
 import TitleColor from '../components/common/TitleColor';
 import { Comment as CommentIcon } from '../components/common/Comment';
 import CommentContainer from '../containers/CommentContainer';
+import { useParams } from '../../node_modules/react-router/index';
+import { getStory, storyUrl } from '../services/API';
+import { useEffect, useState } from 'react';
+import replaceText from '../utils/replaceText';
 
 const CommentBlock = styled(Responsive)`
   background: ${({ theme }) => theme.topbackColor};
@@ -114,39 +118,44 @@ const Comments = styled.div`
   }
 `;
 
-const Comment = ({
-  by = 'mahin',
-  descendants = 27,
-  id = 30219258,
-  kids = [
-    30221314, 30222156, 30221229, 30220337, 30223029, 30219477, 30221538,
-    30221757, 30220629,
-  ],
-  score = 58,
-  text = "I've been playing Wordle and remembered this puzzle game I used to play with my grandfather. It's inspired by the block puzzles in many newspapers but made to be shorter: just guess the nine letter word.So I made a quick thing to play with my family like we used to. I thought you guys might enjoy it.",
-  time = 1644051518,
-  title = 'Show HN: Nine Letter Word – Daily Puzzle Nine Letter Word',
-  type = 'story',
-  url = 'https://www.nineletterwordgame.com',
-}) => {
+const Comment = () => {
+  const params = useParams().id;
+  const [data, setData] = useState({});
+  useEffect(() => {
+    getStory(params).then((story) => story && setData(story));
+  }, []);
+
   return (
     <CommentBlock>
-      <Main>
-        <User>
-          <UserIcon />
-          <div className="info">
-            <div className="id">{by}</div>
-            <PointTime className="point-time" />
-          </div>
-        </User>
-        <Contents>
-          <TitleColor className="title" title={title} />
-          <div className="text">{text}</div>
-        </Contents>
-      </Main>
-      <Comments>
-        <CommentContainer kids={kids} />
-      </Comments>
+      {data !== {} && (
+        <>
+          <Main>
+            <User>
+              <UserIcon />
+              <div className="info">
+                <div className="id">{data.by}</div>
+                <PointTime
+                  className="point-time"
+                  score={data.score}
+                  time={data.time}
+                />
+              </div>
+            </User>
+            <Contents>
+              {data.title && (
+                <TitleColor className="title" title={data.title} />
+              )}
+              <div className="text">{replaceText(data.text)}</div>
+            </Contents>
+          </Main>
+          <Comments>
+            <CommentContainer
+              kids={data.kids}
+              commentCount={data.descendants || (data.kids && data.kids.length)}
+            />
+          </Comments>
+        </>
+      )}
     </CommentBlock>
   );
 };

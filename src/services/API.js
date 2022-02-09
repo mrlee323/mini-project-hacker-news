@@ -1,8 +1,12 @@
 import axios from 'axios';
+import { selectFields, userSelectFields } from '../utils/selectFields';
 
 export const baseUrl = 'https://hacker-news.firebaseio.com/v0/';
-export const storyUrl = `${baseUrl}item/`;
+export const storyUrl = (id) => axios.get(`${baseUrl}item/${id}.json`);
 export const userUrl = (id) => axios.get(`${baseUrl}user/${id}.json`);
+
+export const storyUrls = `${baseUrl}item/`;
+export const userUrls = `${baseUrl}user/`;
 
 export const topUrl = `${baseUrl}topstories.json`;
 export const newUrl = `${baseUrl}newstories.json`;
@@ -12,8 +16,22 @@ export const jobUrl = `${baseUrl}jobstories.json`;
 
 export const getComment = async (kid) => {
   const result = await axios
-    .get(`${storyUrl + kid}.json`)
+    .get(`${storyUrls + kid}.json`)
     .then(({ data }) => data);
+  return result;
+};
+
+export const getStory = async (storyId) => {
+  const result = await axios
+    .get(`${storyUrls + storyId}.json`)
+    .then(({ data }) => data && selectFields(data));
+  return result;
+};
+
+export const getUser = async (userId) => {
+  const result = await axios
+    .get(`${userUrls + userId}.json`)
+    .then(({ data }) => data && userSelectFields(data));
   return result;
 };
 

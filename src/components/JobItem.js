@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ListBox } from './common/Box';
 import { PointTime } from './common/PointTime';
-import Url from './common/Url';
+import urlSlice from '../utils/urlSlice';
 import Favicon from './common/Favicon';
 import { JobTitle } from './common/JobCategory';
 import { ApplyBanner, ApplyBanner2 } from './ApplyBanner';
@@ -179,7 +179,7 @@ const JobItem = ({
         <JobBox key={index}>
           <h3 className="title">{item.title}</h3>
           <div className="info">
-            {url && <div className="url">{Url(item.url)}</div>}
+            {url && <div className="url">{urlSlice(item.url)}</div>}
             <Time />
           </div>
         </JobBox>
@@ -190,7 +190,7 @@ const JobItem = ({
           <JobBox key={index + 4}>
             <h3 className="title">{item.title}</h3>
             <div className="info">
-              {url && <div className="url">{Url(item.url)}</div>}
+              {url && <div className="url">{urlSlice(item.url)}</div>}
               <Time />
             </div>
           </JobBox>
@@ -201,7 +201,7 @@ const JobItem = ({
           <JobBox key={index + 4}>
             <h3 className="title">{item.title}</h3>
             <div className="info">
-              {url && <div className="url">{Url(item.url)}</div>}
+              {url && <div className="url">{urlSlice(item.url)}</div>}
               <Time />
             </div>
           </JobBox>

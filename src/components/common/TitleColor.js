@@ -12,19 +12,22 @@ const TitleColorBlock = styled.div`
     }
   }
 `;
-const TitleColor = ({ title, ...rest }) => {
+const TitleColor = ({ title, url, ...rest }) => {
   const titleIndex = title.includes('HN:') && title.indexOf('HN:') + 3;
   const newTitle = title.slice(0, titleIndex);
-
   return (
     <TitleColorBlock {...rest}>
       {title.includes('HN:') ? (
-        <div className="title">
-          <span>{newTitle}</span>
-          {title.slice(titleIndex)}
-        </div>
+        <a href={url}>
+          <div className="title">
+            <span>{newTitle}</span>
+            {title.slice(titleIndex)}
+          </div>
+        </a>
       ) : (
-        <div className="title">{title}</div>
+        <a href={url}>
+          <div className="title">{title}</div>
+        </a>
       )}
     </TitleColorBlock>
   );

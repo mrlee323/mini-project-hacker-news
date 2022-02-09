@@ -24,7 +24,8 @@ const StyledButton = styled.div`
   }
 `;
 
-const PaginationButton = ({ setCurrentPage, currentPage, count }) => {
+const PaginationButton = ({ setCurrentPage, currentPage, totalCount }) => {
+  const count = parseInt(totalCount / 20);
   const prev = () => {
     currentPage > 1 && setCurrentPage(currentPage - 1);
   };

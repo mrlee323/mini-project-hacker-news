@@ -3,7 +3,7 @@ import { Comment as CommentIcon } from '../components/common/Comment';
 import { useState } from 'react';
 import { useCallback } from 'react';
 
-const CommentContainer = ({ kids }) => {
+const CommentContainer = ({ kids, commentCount }) => {
   const [commentSort, setCommentSort] = useState('registered');
   const [sortComment, setSortComment] = useState([]);
 
@@ -30,7 +30,7 @@ const CommentContainer = ({ kids }) => {
           <div className="registered">Registered</div>
           <div className="newest">Newest</div>
         </div>
-        <CommentIcon />
+        <CommentIcon count={commentCount} />
       </div>
       {kids && kids.map((kid) => <CommentItem kid={kid} key={kid} />)}
     </div>

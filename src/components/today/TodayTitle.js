@@ -5,7 +5,7 @@ import Responsive from '../common/Responsive';
 import { ReactComponent as Update } from '../../assets/updated.svg';
 import { ReactComponent as TimeIcon } from '../../assets/time.svg';
 import { ReactComponent as Arrow } from '../../assets/arrow_right.svg';
-import { Time } from '../common/Time';
+import { getTime } from '../../utils/time';
 
 const TodayBlock = styled(Responsive)`
   width: 390px;
@@ -63,8 +63,8 @@ const RightArrow = styled(Arrow)`
   fill: ${({ theme }) => theme.arrowColor};
 `;
 
-const TodayTitle = ({ children, link, ...rest }) => {
-  const [hour] = Time();
+const TodayTitle = ({ onRandom, children, link, ...rest }) => {
+  const [hour] = getTime();
   const time = `${hour}:00`;
   return (
     <TodayBlock {...rest}>
@@ -78,7 +78,7 @@ const TodayTitle = ({ children, link, ...rest }) => {
         <TimeIcon />
         <div className="time">{time}</div>
       </Timer>
-      <UpdateIcon other={children} />
+      <UpdateIcon other={children} onClick={onRandom} />
     </TodayBlock>
   );
 };

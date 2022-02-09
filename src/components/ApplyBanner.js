@@ -6,7 +6,7 @@ import { ListBox } from './common/Box';
 import Favicon from './common/Favicon';
 import { JobCategory, JobTitle } from './common/JobCategory';
 import { PointTime } from './common/PointTime';
-import Url from './common/Url';
+import urlSlice from '../utils/urlSlice';
 
 const ApplyBannerBlock = styled.div`
   position: relative;
@@ -68,19 +68,6 @@ const JobBox = styled(ListBox)`
     padding-bottom: 0.4rem;
   }
 `;
-
-const Random = (jobs) => {
-  const random = [];
-  for (let i = 0; i < jobs.length; i++) {
-    const count = Math.floor(Math.random() * jobs.length) + 1;
-    random.push(count);
-    if ([...new Set(random)].length === 5) {
-      break;
-    }
-  }
-  const randomArray = [...new Set(random)];
-  return randomArray;
-};
 
 export const ApplyBanner = ({
   applyText = 'Eng Manager to Build the Future of Tabletop RPGs',

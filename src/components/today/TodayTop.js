@@ -1,13 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import { Ago } from '../common/Time';
+import { agoTime } from '../../utils/time';
 import TodayTitle from './TodayTitle';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { PointTime } from '../common/PointTime';
 
 const TodayTopBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
   margin-bottom: 0.75rem;
-  padding-bottom: 4.5rem;
+  padding-bottom: 2rem;
+  .mySwiper {
+    padding-bottom: 1.3rem;
+  }
+  .swiper-pagination {
+    height: 2rem;
+  }
+  .swiper-pagination-bullet {
+    position: relative;
+    top: 1rem;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  .swiper-pagination-bullet-active {
+    background: #ed702d;
+  }
   .top {
     width: 21.9rem;
     margin: 1.25rem auto;
@@ -15,6 +36,7 @@ const TodayTopBlock = styled(Responsive)`
     border-radius: 0.7rem;
     background: ${({ theme }) => theme.postColor};
     border: ${({ theme }) => theme.topBoxBorderColor};
+
     .list {
       padding: 1rem 0.9rem;
       height: 6.1rem;
@@ -44,6 +66,8 @@ const TodayTopBlock = styled(Responsive)`
           margin-top: 0.6rem;
           font-size: 0.75rem;
           color: #727272;
+          display: flex;
+          align-items: center;
           span + span {
             margin-left: 0.7rem;
           }
@@ -53,54 +77,38 @@ const TodayTopBlock = styled(Responsive)`
   }
 `;
 
-const TodayTop = ({ top }) => {
+const TodayTop = ({ todayTop }) => {
+  const pages = [5, 10, 15];
   return (
     <TodayTopBlock>
       <TodayTitle link={'/top/post'}>Today's Top</TodayTitle>
-
-      <div className="top">
-        <div className="list">
-          <div className="rank">1</div>
-          <div className="text">
-            <div className="title">title</div>
-            <div className="info">
-              <span>alfla6528</span>
-              <span>100 point</span>
-              <span>2 hours ago</span>
-            </div>
-          </div>
-        </div>
-        <div className="list">
-          <div className="rank">1</div>
-          <div className="text">
-            <div className="title">title</div>
-            <div className="info">
-              <span>alfla6528</span>
-              <span>100 point</span>
-              <span>2 hours ago</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <ul className="top">
-        {top &&
-          top.map((post, index) => (
-            <li key={index}>
-              <ul className="list">
-                <li className="rank">{index + 1}</li>
-                <li className="text">
-                  <div className="title">{post.title}</div>
-                  <div className="info">
-                    <span>{post.by}</span>
-                    <span>100 point</span>
-                    <span>{Ago(post.time)}</span>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          ))}
-      </ul> */}
+      <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+        {pages.map((page, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <div className="top">
+                {todayTop &&
+                  todayTop.slice(5 * index, page).map((data, index) => (
+                    <div className="list" key={data.id}>
+                      <div className="rank">{index + 1}</div>
+                      <div className="text">
+                        <div className="title">{data.title}</div>
+                        <div className="info">
+                          <span>{data.by}</span>
+                          <PointTime
+                            style={{ color: '#727272' }}
+                            score={data.score}
+                            time={data.time}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </TodayTopBlock>
   );
 };

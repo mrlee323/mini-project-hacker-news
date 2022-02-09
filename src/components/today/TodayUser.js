@@ -6,6 +6,7 @@ import { ReactComponent as Star } from '../../assets/star.svg';
 import { ReactComponent as Arrow } from '../../assets/arrow_right.svg';
 import { ReactComponent as Joined } from '../../assets/joined.svg';
 import { ReactComponent as Karma } from '../../assets/karma.svg';
+import { NavLink } from 'react-router-dom';
 
 const TodayUserBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -92,80 +93,38 @@ const TodayUserBlock = styled(Responsive)`
     }
   }
 `;
-const TodayUser = () => {
+const TodayUser = ({ todayUser }) => {
   return (
     <TodayUserBlock>
       <TodayTitle link={'/top/user'}>Today' User</TodayTitle>
       <div className="user">
-        <div className="list">
-          <div className="title">
-            <div className="star">
-              <Star />
-              <span>1</span>
-            </div>
-            <p>Today's User</p>
-          </div>
-          <div className="id">alfla6528</div>
-          <div className="info">
-            <div>
-              <div className="icon">
-                <Joined /> <span>5 years ago</span>
+        {todayUser.slice(0, 5).map((user, index) => (
+          <div className="list" key={user.id}>
+            <div className="title">
+              <div className="star">
+                <Star />
+                <span>{index + 1}</span>
               </div>
-              <div className="icon">
-                <Karma /> <span>84719</span>
+              <p>Today's User</p>
+            </div>
+            <div className="id">{user.id}</div>
+            <div className="info">
+              <div>
+                <div className="icon">
+                  <Joined /> <span>{user.created}</span>
+                </div>
+                <div className="icon">
+                  <Karma /> <span>{user.karma}</span>
+                </div>
               </div>
-            </div>
-            <div className="arrow">
-              <Arrow />
-            </div>
-          </div>
-        </div>
-        <div className="list">
-          <div className="title">
-            <div className="star">
-              <Star />
-              <span>1</span>
-            </div>
-            <p>Today's User</p>
-          </div>
-          <div className="id">alfla6528</div>
-          <div className="info">
-            <div>
-              <div className="icon">
-                <Joined /> <span>5 years ago</span>
-              </div>
-              <div className="icon">
-                <Karma /> <span>84719</span>
+              <div className="arrow">
+                <NavLink to={`/user/${user.id}/submission`}>
+                  <Arrow />
+                </NavLink>
               </div>
             </div>
-            <div className="arrow">
-              <Arrow />
-            </div>
           </div>
-        </div>
-        <div className="list">
-          <div className="title">
-            <div className="star">
-              <Star />
-              <span>1</span>
-            </div>
-            <p>Today's User</p>
-          </div>
-          <div className="id">alfla6528</div>
-          <div className="info">
-            <div>
-              <div className="icon">
-                <Joined /> <span>5 years ago</span>
-              </div>
-              <div className="icon">
-                <Karma /> <span>84719</span>
-              </div>
-            </div>
-            <div className="arrow">
-              <Arrow />
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </TodayUserBlock>
   );

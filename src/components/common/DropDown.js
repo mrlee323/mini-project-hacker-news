@@ -1,16 +1,7 @@
-// import React, { useCallback } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../assets/arrow_select.svg';
-// import {
-//   comments,
-//   points,
-//   karma,
-//   time,
-//   day,
-//   weeks,
-//   month,
-// } from '../../modules/filter';
+import { daySort, karmaSort, sortData, weeklySort } from '../../utils/sort';
 
 const DropDownBlock = styled.div`
   display: flex;
@@ -54,35 +45,55 @@ const Time = styled(Results)`
   }
 `;
 
-const DropDown = ({ ...rest }) => {
-  // const dispatch = useDispatch();
-  // const [ResultType, setResultType] = useState('results');
-  // const items = useSelector((state) => state.post.posts);
+const DropDown = ({
+  setSortData,
+  setResultSortType,
+  setTimeSortType,
+  data,
+  user,
+  ...rest
+}) => {
+  const [typeValue, setTypeValue] = useState({
+    result: 'results',
+    time: 'time',
+  });
 
-  // const onChange = useCallback(
-  //   (e) => {
-  //     const value = e.target.value;
-  //     console.log(value);
+  const timesort = useRef();
+  const onResultChange = useCallback(
+    (e) => {
+      const value = e.target.value;
+      const sortedData =
+        value === 'karma' ? karmaSort(user) : sortData(data, value);
+      setSortData(sortedData);
+      setResultSortType(`${value}`);
+      setTimeSortType('time');
+      timesort.current.options[0].selected = true;
+      setTypeValue({ result: `${value}`, time: 'time' });
+    },
+    [typeValue],
+  );
 
-  //     dispatch(comments(items));
-  //     switch (value) {
-  //       case 'comments':
-  //         return dispatch(comments(items));
-  //       case 'points':
-  //         return dispatch(points(items));
-  //       case 'karma':
-  //         return dispatch(karma(items));
-  //       default:
-  //         return items;
-  //     }
-  //   },
-  //   [dispatch, items],
-  // );
+  const onTimeChange = useCallback(
+    (e) => {
+      const value = e.target.value;
+      const sortedData =
+        value === 'time'
+          ? data
+          : value === 'day'
+          ? daySort(data, typeValue.result)
+          : weeklySort(data, typeValue.result);
+      console.log('onchange', sortedData);
+      setSortData(sortedData);
+      setTimeSortType(`${value}`);
+      setTypeValue({ result: typeValue.result, time: `${value}` });
+    },
+    [typeValue],
+  );
 
   return (
     <DropDownBlock {...rest}>
       <Results>
-        <select>
+        <select onChange={onResultChange}>
           <option value="results">Results</option>
           <option value="comments">Comments</option>
           <option value="points">Points</option>
@@ -90,11 +101,10 @@ const DropDown = ({ ...rest }) => {
         </select>
       </Results>
       <Time>
-        <select>
+        <select onChange={onTimeChange} ref={timesort}>
           <option value="time">Time</option>
           <option value="day">Day</option>
           <option value="weeks">Weeks</option>
-          <option value="month">Month</option>
         </select>
       </Time>
     </DropDownBlock>

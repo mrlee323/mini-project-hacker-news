@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Point } from '../../assets/point.svg';
 import { ReactComponent as Time } from '../../assets/time_small.svg';
-import { Ago } from './Time';
+import { agoTime } from '../../utils/time';
 
 const PointTimeBlock = styled.div`
   display: flex;
@@ -20,8 +20,13 @@ const PointTimeBlock = styled.div`
 export const PointTime = ({ score, time, ...rest }) => {
   return (
     <PointTimeBlock {...rest}>
-      <p className="score">{score} points</p>
-      <p className="time">{Ago(time)}</p>
+      {score === undefined ? (
+        <p className="score" style={{ display: 'none' }} />
+      ) : (
+        <p className="score">{score} points</p>
+      )}
+
+      <p className="time">{agoTime(time)}</p>
     </PointTimeBlock>
   );
 };
@@ -52,7 +57,7 @@ export const IconPointTime = ({ score, time, ...rest }) => {
       <Point className="point" />
       <p className="score">{score}</p>
       <Time className="timeIcon" />
-      <p className="time">{Ago(time)}</p>
+      <p className="time">{agoTime(time)}</p>
     </IconPointTimeBlock>
   );
 };

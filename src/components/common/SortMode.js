@@ -12,10 +12,26 @@ const SortModeBlock = styled.div`
   /* margin-bottom: 1.6rem; */
 `;
 
-const SortMode = ({ setViewMode, viewMode, ...rest }) => {
+const SortMode = (props) => {
+  const {
+    setResultSortType,
+    setTimeSortType,
+    setSortData,
+    data,
+    user,
+    setViewMode,
+    viewMode,
+    ...rest
+  } = props;
   return (
     <SortModeBlock {...rest}>
-      <DropDown />
+      <DropDown
+        setResultSortType={setResultSortType}
+        setTimeSortType={setTimeSortType}
+        setSortData={setSortData}
+        data={data}
+        user={user}
+      />
       <BoxMode setViewMode={setViewMode} viewMode={viewMode} />
     </SortModeBlock>
   );

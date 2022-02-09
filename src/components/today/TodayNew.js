@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
 import Responsive from '../common/Responsive';
 import TodayTitle from './TodayTitle';
-import { Ago } from '../common/Time';
+import { agoTime } from '../../utils/time';
 
 const TodayNewBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -93,7 +93,7 @@ const TodayNew = ({ news }) => {
           news.map((item, index) => (
             <li key={index}>
               <ul className="list">
-                <li className="time">{Ago(item.time)}</li>
+                <li className="time">{agoTime(item.time)}</li>
                 <li className="title">{item.title}</li>
                 <li className="user">
                   <UserIcon fill="#727272" />

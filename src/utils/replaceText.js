@@ -1,4 +1,4 @@
-const unHexCode = (str) => {
+const replaceText = (str) => {
   const string =
     str &&
     str
@@ -15,4 +15,4 @@ const unHexCode = (str) => {
   return string;
 };
 
-export default unHexCode;
+export default replaceText;

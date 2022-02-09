@@ -1,4 +1,4 @@
-export const Time = () => {
+export const getTime = () => {
   const date = new Date();
   const hour = date.getHours();
   const min = date.getMinutes();
@@ -6,7 +6,7 @@ export const Time = () => {
   return [hour, min];
 };
 
-export const Ago = (time) => {
+export const agoTime = (time) => {
   const today = parseInt(Date.now() / 1000);
   if (today - time > 60 * 60 * 24 * 365) {
     const date = Math.round((today - time) / (60 * 60 * 24 * 365));

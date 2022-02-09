@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ListBox } from '../components/common/Box';
 import Responsive from '../components/common/Responsive';
 import { ReactComponent as Joined } from '../assets/joined.svg';
 import { ReactComponent as Karma } from '../assets/karma.svg';
-import { Ago } from '../components/common/Time';
+import { agoTime } from '../utils/time';
+import replaceText from '../utils/replaceText';
+import { Outlet, useParams } from 'react-router';
+import { UserCategory } from '../components/common/Category';
+import { useDispatch, useSelector } from 'react-redux';
+import { GET_USER_INFO } from '../modules/userInfo';
+import createRequestUserInfo from '../libs/createRequestUserInfo';
+import { getStory, getUser } from '../services/API';
+import UserContainer from '../containers/UserContainer';
 
 const UsersBlock = styled(Responsive)`
   padding: 1.9rem 0;
@@ -25,40 +33,53 @@ const UserBox = styled(ListBox)`
       margin-right: 0.5rem;
     }
   }
-`;
-
-const ComentBox = styled(ListBox)`
-  letter-spacing: 0.01rem;
-  h3 {
-    line-height: 1.3;
-    font-weight: 500;
-  }
-  a {
-    color: #b7b7b7;
-    font-size: 0.75rem;
+  .about {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    word-break: break-all;
   }
 `;
 
-const User = ({ user = { id: 'norvig', items: 1678930422 } }) => {
+const User = () => {
+  const user = useSelector((state) => state.userInfo.userInfos.user);
+  // const story = useSelector((state) => state.userInfo.userInfos.type.story);
+  // const comment = useSelector((state) => state.userInfo.userInfos.type.comment);
+  // const dispatch = useDispatch();
+  // const params = useParams();
+  // const userId = params.username;
+  // console.log(userId);
+
+  // const getUserInfoData = createRequestUserInfo(
+  //   GET_USER_INFO,
+  //   getStory,
+  //   getUser,
+  //   userId,
+  // );
+  // useEffect(() => {
+  //   dispatch(getUserInfoData());
+  // }, [dispatch, userId]);
+
   return (
-    <UsersBlock>
-      <UserBox>
-        <h2>{user.id}</h2>
-        <div className="info">
-          <Joined />
-          <span>{Ago(user.times)}</span>
-          <Karma />
-          <span>{user.karma}</span>{' '}
-        </div>
-      </UserBox>
-      <ComentBox>
-        <h3>
-          <span style={{ color: '#ED702D' }}>Show HN:</span> Bulk convert //
-          Images online without sending to server //{' '}
-        </h3>
-        <a href="http://">webutils.app</a>
-      </ComentBox>
-    </UsersBlock>
+    <>
+      <UsersBlock>
+        {user !== undefined && (
+          <UserBox>
+            <h2>{user.id}</h2>
+            <div className="info">
+              <Joined />
+              <span>{agoTime(user.created)}</span>
+              <Karma />
+              <span>{user.karma}</span>{' '}
+            </div>
+            <div className="about">{replaceText(user.about)}</div>
+          </UserBox>
+        )}
+        <UserCategory />
+        <UserContainer />
+        <Outlet />
+      </UsersBlock>
+    </>
   );
 };
 

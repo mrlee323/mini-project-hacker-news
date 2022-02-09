@@ -4,7 +4,7 @@ import { IconPointTime } from './common/PointTime';
 import UserInfo from './common/UserInfo';
 import { ReactComponent as Arrow } from '../assets/arrow_up.svg';
 import { useEffect } from 'react';
-import unHexCode from '../utils/unHexCode';
+import replaceText from '../utils/replaceText';
 
 const CommentBoxBlock = styled.div`
   width: 21.9rem;
@@ -88,7 +88,7 @@ const CommentBox = (props) => {
             />
           </User>
           <Text style={{ display: textBox === false ? 'none' : ' ' }}>
-            {unHexCode(text)}
+            {replaceText(text)}
           </Text>
         </CommentBoxBlock>
       )}
