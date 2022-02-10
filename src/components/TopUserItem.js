@@ -27,9 +27,14 @@ const Rank = styled.ul`
     &:nth-child(even) {
       background: #eaf4f8;
       color: #202020;
+      .id {
+        color: #202020;
+      }
     }
-    .id {
-      color: ${({ theme }) => theme.textColor};
+    &:nth-child(odd) {
+      .id {
+        color: ${({ theme }) => theme.textColor};
+      }
     }
   }
 `;
