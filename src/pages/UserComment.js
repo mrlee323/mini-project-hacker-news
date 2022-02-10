@@ -11,11 +11,12 @@ import replaceText from '../utils/replaceText';
 
 const ComentBox = styled(ListBox)`
   letter-spacing: 0.01rem;
-  h3 {
-    line-height: 1.3;
-    font-weight: 500;
+  p {
+    line-height: 1.5;
+    font-size: 0.9rem;
     padding: 0;
     margin-bottom: 0.3rem;
+    word-break: break-all;
   }
   a {
     color: #b7b7b7;
@@ -41,19 +42,25 @@ const Time = styled(PointTime)`
 
 const UserComment = () => {
   const comment = useSelector((state) => state.userInfo.userInfos.type.comment);
-
   return (
     <>
       {comment && comment.length > 1 ? (
         comment.map((data) => (
           <ComentBox key={data.id}>
-            <p className="text">{replaceText(data.text)}</p>
+            {data.text !== undefined && (
+              <p className="text">{replaceText(data.text)}</p>
+            )}
             <User>
               <div className="info">
                 <UserInfo id={data.by} />
                 <Time time={data.time} />
               </div>
-              <Comment count={data.kids.length} link={`/comment/${data.id}`} />
+              {data.kids && (
+                <Comment
+                  count={data.kids.length}
+                  link={`/comment/${data.id}`}
+                />
+              )}
             </User>
           </ComentBox>
         ))
@@ -65,10 +72,7 @@ const UserComment = () => {
               <UserInfo id={comment[0].by} />
               <Time time={comment[0].time} />
             </div>
-            <Comment
-              count={comment[0].kids.length}
-              link={`/comment/${comment[0].id}`}
-            />
+            <Comment count={comment[0].kids.length} link={comment[0].id} />
           </User>
         </ComentBox>
       )}

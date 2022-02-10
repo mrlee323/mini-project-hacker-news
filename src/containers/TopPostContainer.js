@@ -19,7 +19,6 @@ const TopPostContainer = ({
   topPost,
   sortData,
   resultSortType,
-  timeSortType,
 }) => {
   const lastIndex = currentPage * 20;
   const firstIndex = lastIndex - 20;
@@ -27,7 +26,6 @@ const TopPostContainer = ({
     <TopPostContainerBlock viewMode={viewMode}>
       {topPost &&
         resultSortType !== 'karma' &&
-        timeSortType === 'time' &&
         sortData
           .slice(firstIndex, lastIndex)
           .map((post) => (
@@ -43,20 +41,6 @@ const TopPostContainer = ({
               ),
           ),
         )}
-      {sortData && timeSortType !== 'time' && sortData.length !== 1
-        ? sortData.map((day) =>
-            day.length !== 1 ? (
-              day.map((post) => (
-                <TopPostItem viewMode={viewMode} post={post} key={post.id} />
-              ))
-            ) : (
-              <TopPostItem viewMode={viewMode} post={day[0]} key={day[0].id} />
-            ),
-          )
-        : sortData.length === 1 &&
-          sortData[0].map((post) => (
-            <TopPostItem viewMode={viewMode} post={post} key={post.id} />
-          ))}
     </TopPostContainerBlock>
   );
 };

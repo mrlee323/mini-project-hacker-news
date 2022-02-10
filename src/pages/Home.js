@@ -22,11 +22,11 @@ const Home = () => {
         <Banner style={{ width: '24.4rem' }} />
         <ScrollTopButton position={2900} />
         <TodayTop todayTop={today.top.tops} />
-        <TodayNew />
+        <TodayNew todayNew={today.news.news} />
         <TodayUser todayUser={today.user.users} />
         <TodayShow todayShow={today.show.shows} />
-        <TodayAsk />
-        <TodayJob />
+        <TodayAsk todayAsk={today.ask.asks} />
+        <TodayJob todayJob={today.job.jobs} />
       </HomeBlock>
     </section>
   );

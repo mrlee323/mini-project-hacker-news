@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TodayTitle from './TodayTitle';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
@@ -9,6 +9,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import random from '../../utils/random';
+import TitleColor from '../common/TitleColor';
 
 const TodayJobBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -32,18 +34,21 @@ const TodayJobBlock = styled(Responsive)`
       padding: 1rem 0.75rem;
       box-sizing: border-box;
       .title {
+        height: 6.75rem;
         margin-top: 0.625rem;
         font-size: 0.9rem;
         font-weight: 600;
         line-height: 1.3;
         height: 3.75rem;
-        margin-bottom: 0.2rem;
         color: #202020;
       }
       .url {
+        margin-bottom: 1rem;
+      }
+      a {
         font-size: 0.75rem;
         color: #727272;
-        margin-bottom: 0.75rem;
+        margin: 0;
       }
     }
   }
@@ -57,11 +62,15 @@ const Time = styled(IconPointTime)`
     display: none;
   }
 `;
-const TodayJob = ({
-  url = 'https://www.paperspace.com/careers#open-positions',
-  title = 'Bitmovin (YC S15) Is Hiring Software Engineers in Support in EMEA',
-}) => {
-  const array = [1, 2, 3, 4, 5];
+const TodayJob = ({ todayJob }) => {
+  const [randomArray, setRandomArray] = useState([1, 2, 3, 4, 5]);
+  useEffect(() => {
+    let id = setInterval(() => {
+      setRandomArray(random(todayJob));
+    }, 600000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <TodayJobBlock>
       <TodayTitle link={'/job'}>Today's Job</TodayTitle>
@@ -75,21 +84,44 @@ const TodayJob = ({
         // modules={[Autoplay]}
         className="mySwiper"
       >
-        {array.map((i) => (
-          <SwiperSlide>
-            <div className="job">
-              <div className="list">
-                <JobCategory title={title} />
-                <div className="title">
-                  Reverie Labs (YC W18) is hiring senior software engineers to
-                  tackle cancer
+        {randomArray.map(
+          (index) =>
+            todayJob[index] && (
+              <SwiperSlide key={index}>
+                <div className="job">
+                  <div className="list">
+                    <JobCategory title={todayJob[index].title} />
+                    <div
+                      className="title"
+                      style={{
+                        marginBottom:
+                          todayJob[index].url === undefined && '2rem',
+                      }}
+                    >
+                      {todayJob[index].title && (
+                        <TitleColor
+                          title={todayJob[index].title}
+                          url={todayJob[index].url}
+                        />
+                      )}
+                    </div>
+                    {todayJob[index].url && (
+                      <div className="url">
+                        <a
+                          href={todayJob[index].url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {urlSlice(todayJob[index].url)}
+                        </a>
+                      </div>
+                    )}
+                    <Time time={todayJob[index].time} />
+                  </div>
                 </div>
-                {url && <div className="url">{urlSlice(url)}</div>}
-                <Time />
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+              </SwiperSlide>
+            ),
+        )}
       </Swiper>
     </TodayJobBlock>
   );

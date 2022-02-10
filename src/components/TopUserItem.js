@@ -48,10 +48,7 @@ const TopUserItem = ({ post, index }) => {
                 (index + 1 === 3 && '🥉')}
               <span>{index + 1}</span>
             </div>
-            <NavLink
-              to={`/user/${user.id}/submission`}
-              style={{ textDecoration: 'none' }}
-            >
+            <NavLink to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
               <div className="id">{user.id}</div>
             </NavLink>
             <div className="karma">{user.karma}</div>

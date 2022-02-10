@@ -5,8 +5,19 @@ import { CardBox, ListBox } from './common/Box';
 import { Comment } from './common/Comment';
 import { IconPointTime, PointTime } from './common/PointTime';
 import UserInfo from './common/UserInfo';
-import { ReactComponent as Github } from '../assets/github.svg';
+import { AskTitleColor } from './common/TitleColor';
 import UrlIcon from './common/UrlIcon';
+
+const StyledBox = styled(ListBox)`
+  padding-top: 0.8rem;
+  padding-bottom: 0.9rem;
+  height: 9.25rem;
+  box-sizing: border-box;
+  h3 {
+    line-height: 1.5;
+    height: 3.1rem;
+  }
+`;
 
 const ListUser = styled.div`
   display: flex;
@@ -26,47 +37,47 @@ const CardUser = styled.div`
     }
   }
 `;
-
-const ShowItem = ({ viewMode }) => {
-  const [show, setShow] = useState({});
-  const url =
-    'https://www.axios.com/olympic-protest-posters-removed-us-university-chinese-students-a11621d5-81f5-4760-88be-d97a654158a0.html';
+const ShowTitleColor = styled(AskTitleColor)``;
+const ShowItem = ({ show, viewMode }) => {
   return (
     <>
-      {viewMode === 'list' ? (
-        <ListBox>
-          <UrlIcon url={url} />
-          <a href={`${show.url}`} target="_blank" rel="noreferrer">
-            <h3 style={{ marginTop: '.9rem' }}>
-              We're migrating many of our servers from Linux to FreeBSD
-              {show.title}
-            </h3>
-          </a>
-          <ListUser>
-            <div className="info">
-              <UserInfo />
-              <PointTime />
-            </div>
-            <Comment />
-          </ListUser>
-        </ListBox>
-      ) : (
-        <CardBox>
-          <a href={`${show.url}`} target="_blank" rel="noreferrer">
-            <h3>
-              We're migrating many of our servers from Linux to FreeBSD
-              {show.title}
-            </h3>
-          </a>
-          <CardUser>
-            <IconPointTime />
-            <div className="info">
-              <UserInfo className="id" />
-              <Comment />
-            </div>
-          </CardUser>
-        </CardBox>
-      )}
+      {viewMode === 'list'
+        ? show && (
+            <StyledBox style={{ height: '9.25rem' }}>
+              {show.url && <UrlIcon url={show.url} />}
+              <h3
+                style={{
+                  margin: show.url ? '.7rem 0 1.5rem' : '.5rem 0 2.5rem',
+                }}
+              >
+                {show.title && (
+                  <ShowTitleColor title={show.title} link={show.id} />
+                )}
+              </h3>
+              <ListUser>
+                <div className="info">
+                  <UserInfo id={show.by} />
+                  <PointTime score={show.score} time={show.time} />
+                </div>
+                <Comment count={show.descendants} link={show.id} />
+              </ListUser>
+            </StyledBox>
+          )
+        : show && (
+            <CardBox>
+              {show.url && <UrlIcon url={show.url} />}
+              <h3 style={{ margin: show.url ? '.5rem 0 1rem' : '0 0 2.5rem' }}>
+                <ShowTitleColor title={show.title} link={show.id} />
+              </h3>
+              <CardUser>
+                <IconPointTime time={show.time} score={show.score} />
+                <div className="info">
+                  <UserInfo className="id" id={show.by} />
+                  <Comment count={show.descendants} link={show.id} />
+                </div>
+              </CardUser>
+            </CardBox>
+          )}
     </>
   );
 };

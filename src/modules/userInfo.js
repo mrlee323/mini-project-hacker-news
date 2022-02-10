@@ -5,14 +5,18 @@ import { getStory, getUser } from '../services/API';
 export const GET_USER_INFO = 'GET_USER_INFO';
 const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';
 
-export const getUserInfoData = createRequestUserInfo(
-  GET_USER_INFO,
-  getStory,
-  getUser,
-);
+export const getUserInfoData = (userId) => {
+  return createRequestUserInfo(GET_USER_INFO, getStory, getUser, userId);
+};
 
 const initialState = {
-  userInfos: { user: [], type: { story: [], comment: [] } },
+  userInfos: {
+    user: {},
+    type: {
+      comment: [],
+      story: [],
+    },
+  },
 };
 
 const userInfo = handleActions(

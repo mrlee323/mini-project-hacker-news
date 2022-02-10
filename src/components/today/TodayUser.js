@@ -118,7 +118,7 @@ const TodayUser = ({ todayUser }) => {
                 </div>
               </div>
               <div className="arrow">
-                <NavLink to={`/user/${user.id}/submission`}>
+                <NavLink to={`/user/${user.id}`}>
                   <Arrow />
                 </NavLink>
               </div>

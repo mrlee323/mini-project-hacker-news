@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ListBox } from '../components/common/Box';
 import TitleColor from '../components/common/TitleColor';
 import { PointTime } from '../components/common/PointTime';
 import UserInfo from '../components/common/UserInfo';
 import { Comment } from '../components/common/Comment';
-import { useDispatch, useSelector } from 'react-redux';
 import urlSlice from '../utils/urlSlice';
-import { useParams } from '../../node_modules/react-router/index';
-import createRequestUserInfo from '../libs/createRequestUserInfo';
-import { GET_USER_INFO } from '../modules/userInfo';
-import { getStory, getUser } from '../services/API';
+import { useSelector } from 'react-redux';
 
 const ComentBox = styled(ListBox)`
   letter-spacing: 0.01rem;
@@ -35,58 +31,25 @@ const User = styled.div`
     align-items: center;
   }
 `;
-const UserSubmission = () => {
-  const story = useSelector((state) => state.userInfo.userInfos.type.story);
-  // const comment = useSelector((state) => state.userInfo.userInfos.type.comment);
-  const dispatch = useDispatch();
-  const params = useParams();
-  const userId = params.username;
-
-  const getUserInfoData = createRequestUserInfo(
-    GET_USER_INFO,
-    getStory,
-    getUser,
-    userId,
-  );
-  useEffect(() => {
-    dispatch(getUserInfoData());
-  }, [dispatch]);
+const UserSubmission = ({ story }) => {
+  const datas = useSelector((state) => state.userInfo.userInfos.type.story);
 
   return (
     <>
-      {story !== undefined &&
-        (story.length > 1 ? (
-          story.map((data) => (
-            <ComentBox>
-              <h3>{data && <TitleColor title={data.title} />}</h3>
-              <a href={data.url}>{data.url}</a>
-              <User>
-                <div className="info">
-                  <UserInfo id={data.id} />
-                  <PointTime score={data.score} time={data.time} />
-                </div>
-                <Comment
-                  count={data.descendants}
-                  link={`/comment/${data.id}`}
-                />
-              </User>
-            </ComentBox>
-          ))
-        ) : (
-          <ComentBox>
+      {story === undefined &&
+        datas &&
+        datas.map((data) => (
+          <ComentBox key={data.id}>
             <h3>
-              <TitleColor title={story[0].title} url={story[0].url} />
+              {data.title !== undefined && <TitleColor title={data.title} />}
             </h3>
-            <a href={story[0].url}>{urlSlice(story[0].url)}</a>
+            <a href={data.url}>{data.url}</a>
             <User>
               <div className="info">
-                <UserInfo id={story[0].id} />
-                <PointTime score={story[0].score} time={story[0].time} />
+                <UserInfo id={data.by} />
+                <PointTime score={data.score} time={data.time} />
               </div>
-              <Comment
-                count={story[0].descendants}
-                link={`/comment/${story[0].id}`}
-              />
+              <Comment count={data.descendants} link={data.id} />
             </User>
           </ComentBox>
         ))}
@@ -95,3 +58,22 @@ const UserSubmission = () => {
 };
 
 export default UserSubmission;
+
+export const Submission = ({ story }) => {
+  return (
+    story !== [] &&
+    story.map((data) => (
+      <ComentBox key={data.id}>
+        <h3>{data.title !== undefined && <TitleColor title={data.title} />}</h3>
+        <a href={data.url}>{data.url}</a>
+        <User>
+          <div className="info">
+            <UserInfo id={data.by} />
+            <PointTime score={data.score} time={data.time} />
+          </div>
+          <Comment count={data.descendants} link={data.id} />
+        </User>
+      </ComentBox>
+    ))
+  );
+};

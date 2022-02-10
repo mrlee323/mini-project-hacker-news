@@ -76,7 +76,7 @@ const CommentBox = (props) => {
 
   return (
     <>
-      {comment !== {} && (
+      {comment && (
         <CommentBoxBlock textBox={textBox}>
           <User>
             <UserInfo className="id" id={by} />

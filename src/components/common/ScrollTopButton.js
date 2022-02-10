@@ -11,6 +11,7 @@ const Button = styled.div`
   position: fixed;
   left: 80%;
   top: 80%;
+  z-index: 50;
   svg {
     position: absolute;
     top: 50%;

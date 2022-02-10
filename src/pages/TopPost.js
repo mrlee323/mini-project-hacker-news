@@ -1,5 +1,4 @@
 import React from 'react';
-import ScrollTopButton from '../components/common/ScrollTopButton';
 import SortMode from '../components/common/SortMode';
 import TopPostContainer from '../containers/TopPostContainer';
 import PaginationButton from '../components/common/PaginationButton';
@@ -14,7 +13,6 @@ const TopPost = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState(topPost);
   const [resultSortType, setResultSortType] = useState('results');
-  const [timeSortType, setTimeSortType] = useState('time');
 
   return (
     <div className="top-post">
@@ -23,19 +21,17 @@ const TopPost = () => {
         setViewMode={setViewMode}
         viewMode={viewMode}
         setResultSortType={setResultSortType}
-        setTimeSortType={setTimeSortType}
         setSortData={setSortData}
         data={topPost}
         user={topUser}
       />
-      <ScrollTopButton position={1000} />
+
       <TopPostContainer
         viewMode={viewMode}
         currentPage={currentPage}
         sortData={sortData}
         topPost={topPost}
         resultSortType={resultSortType}
-        timeSortType={timeSortType}
       />
       <PaginationButton
         setCurrentPage={setCurrentPage}

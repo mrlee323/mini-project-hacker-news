@@ -85,6 +85,7 @@ const Boxed = styled(Box)`
   position: absolute;
   left: 0;
   transition: left ease-in 0.2s;
+
   ${(props) =>
     props.page === 'comment' &&
     css`
@@ -107,7 +108,7 @@ const StyleLinked = styled(StyleLink)`
   left: 2.7%;
   top: 0.2rem;
   /* ${(props) =>
-    props.page === '/top' &&
+    props.page === false &&
     css`
       color: #fff;
     `} */
@@ -125,7 +126,9 @@ export const UserCategory = () => {
   return (
     <UserCategoryBlock>
       <Boxed page={page} />
-      <StyleLinked to="submission">submissions</StyleLinked>
+      <StyleLinked to="submission" style={{ color: page === false && '#fff' }}>
+        submissions
+      </StyleLinked>
       <StyleLinked to="comment" style={{ left: '38%' }}>
         comments
       </StyleLinked>

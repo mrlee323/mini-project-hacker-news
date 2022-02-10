@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Comment } from './common/Comment';
 import { PointTime } from './common/PointTime';
-import { agoTime } from '../utils/time';
 import UserInfo from './common/UserInfo';
+import TitleColor, { AskTitleColor } from './common/TitleColor';
+import { NavLink } from 'react-router-dom';
 
 const AskItemBlock = styled.div`
   background: ${({ theme }) => theme.navColor};
@@ -64,68 +65,36 @@ const Point = styled(PointTime)`
     display: none;
   }
 `;
-const AskItem = ({
-  time,
-  title = 'Ask HN: alfladlsms dhsmfeh qkatosek lfladlsms dhsmfeh qkatosek',
-}) => {
+
+const Time = styled(PointTime)`
+  .score {
+    display: none;
+  }
+`;
+
+const AskItem = ({ ask }) => {
   return (
     <>
-      <AskItemBlock>
-        {title.includes('Ask HN:') ? (
-          <h3 className="title">
-            <span> {title.slice(0, 7)} </span> {title.slice(7)}
+      {ask && (
+        <AskItemBlock>
+          <h3>
+            {ask.title && <AskTitleColor title={ask.title} link={ask.id} />}
           </h3>
-        ) : (
-          <h3 className="title">{title}</h3>
-        )}
-        <p className="content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus non
-          elementum neque pulvinar consectetur nunc tellus nullam viverra. Nulla
-          amet diam dignissim diam,Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Lectus non elementum neque pulvinar consectetur nunc
-          tellus nullam viverra. Nulla amet diam dignissim diam,
-        </p>
-        <div className="times">
-          <div />
-          <p className="time">{agoTime(time)}2 minutes ago</p>
-        </div>
-        <User>
-          <div className="user">
-            <UserInfo />
-            <Point />
+          <p className="content">{ask.text}</p>
+          <div className="times">
+            <div />
+            <Time time={ask.time} />
           </div>
-          <Comment />
-        </User>
-        <div className="shadow" />
-      </AskItemBlock>
-      <AskItemBlock>
-        {title.includes('Ask HN:') ? (
-          <h3 className="title">
-            <span> {title.slice(0, 7)} </span> {title.slice(7)}
-          </h3>
-        ) : (
-          <h3 className="title">{title}</h3>
-        )}
-        <p className="content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus non
-          elementum neque pulvinar consectetur nunc tellus nullam viverra. Nulla
-          amet diam dignissim diam,Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Lectus non elementum neque pulvinar consectetur nunc
-          tellus nullam viverra. Nulla amet diam dignissim diam,
-        </p>
-        <div className="times">
-          <div />
-          <p className="time">{agoTime(time)}2 minutes ago</p>
-        </div>
-        <User>
-          <div className="user">
-            <UserInfo />
-            <Point />
-          </div>
-          <Comment />
-        </User>
-        <div className="shadow" />
-      </AskItemBlock>
+          <User>
+            <div className="user">
+              <UserInfo id={ask.by} />
+              <Point score={ask.score} />
+            </div>
+            <Comment count={ask.descendants} link={ask.id} />
+          </User>
+          <div className="shadow" />
+        </AskItemBlock>
+      )}
     </>
   );
 };

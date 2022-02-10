@@ -9,16 +9,15 @@ import replaceText from '../utils/replaceText';
 
 const CoCommentBoxBlock = styled.div`
   box-sizing: border-box;
-  padding: 0.8rem 0rem;
+  padding: 1.2rem 1rem;
   border-radius: 0;
   border-bottom: ${({ theme }) => theme.borderColor};
   margin-bottom: 0.65rem;
   ${(props) =>
     props.textBox &&
     css`
-      background: ${({ theme }) => theme.bgColor};
+      background: ${({ theme }) => theme.topbackColor};
       border-radius: 0.5rem;
-      padding: ${({ theme }) => theme.commentPadding};
       border-bottom: none;
     `}
 `;
@@ -86,7 +85,7 @@ const CoCommentBox = (props) => {
 
   return (
     <div style={{ width: '95%' }}>
-      {cocomment.id !== undefined && (
+      {cocomment.by !== undefined && (
         <>
           <CoCommentBoxBlock
             align="left"

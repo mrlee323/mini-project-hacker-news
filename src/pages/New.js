@@ -18,7 +18,6 @@ const New = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState(news);
   const [resultSortType, setResultSortType] = useState('results');
-  const [timeSortType, setTimeSortType] = useState('time');
 
   return (
     <section className="new">
@@ -28,19 +27,16 @@ const New = () => {
           setViewMode={setViewMode}
           viewMode={viewMode}
           setResultSortType={setResultSortType}
-          setTimeSortType={setTimeSortType}
           setSortData={setSortData}
           data={news}
           user={users}
         />
-        <ScrollTopButton position={1000} />
         <NewContainer
           viewMode={viewMode}
           currentPage={currentPage}
           sortData={sortData}
           data={news}
           resultSortType={resultSortType}
-          timeSortType={timeSortType}
         />
         <PaginationButton
           setCurrentPage={setCurrentPage}

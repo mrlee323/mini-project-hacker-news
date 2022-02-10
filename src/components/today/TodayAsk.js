@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import random from '../../utils/random';
 import Responsive from '../common/Responsive';
-import TitleColor from '../common/TitleColor';
+import { AskTitleColor } from '../common/TitleColor';
 import TodayTitle from './TodayTitle';
 
 const TodayAskBlock = styled(Responsive)`
@@ -21,16 +23,38 @@ const TodayAskBlock = styled(Responsive)`
   }
 `;
 
-const TodayAsk = () => {
+const TitleColorStyled = styled(AskTitleColor)`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
+
+const TodayAsk = ({ todayAsk }) => {
+  const [randomArray, setRandomArray] = useState([1, 2, 3, 4, 5]);
+
+  const onRandom = () => {
+    setRandomArray(random(todayAsk));
+  };
+
   return (
     <TodayAskBlock>
-      {/* <TodayTitle link={'/ask'}>Today's Ask</TodayTitle>
-      <div className="ask">
-        <TitleColor title={title} />
-      </div>
-      <div className="ask">
-        <TitleColor title={title} />
-      </div> */}
+      <TodayTitle link={'/ask'} onRandom={onRandom}>
+        Today's Ask
+      </TodayTitle>
+      {todayAsk &&
+        todayAsk.length > 100 &&
+        randomArray.map((index) => (
+          <div className="ask" key={todayAsk[index].id}>
+            {todayAsk[index].title && (
+              <TitleColorStyled
+                title={todayAsk[index].title}
+                link={todayAsk[index].id}
+              />
+            )}
+          </div>
+        ))}
     </TodayAskBlock>
   );
 };

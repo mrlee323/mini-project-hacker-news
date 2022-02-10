@@ -73,20 +73,21 @@ const TodayShow = ({ todayShow }) => {
         Today's Show
       </TodayTitle>
       <div className="show">
-        {todayShow.length > 60 &&
+        {todayShow.length >= 55 &&
           randomArray.map((index) => (
             <div className="list" key={index}>
-              <UrlIcon url={todayShow[index].url} />
-              <div className="title">
-                <a
-                  href={todayShow[index].url}
-                  target="_blank"
-                  rel="noreferrer"
+              {todayShow[index].url && <UrlIcon url={todayShow[index].url} />}
+              <div
+                className="title"
+                style={{
+                  marginBottom: todayShow[index].url === undefined && '1rem',
+                }}
+              >
+                <TitleColor
                   className="url-icon"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <TitleColor title={todayShow[index].title} />
-                </a>
+                  title={todayShow[index].title}
+                  url={todayShow[index].url}
+                />
               </div>
               <IconPointTime
                 style={{ borderBottom: '1px solid #DFDFDF' }}
@@ -97,7 +98,7 @@ const TodayShow = ({ todayShow }) => {
                 <UserInfo id={todayShow[index].by} />
                 <Comment
                   count={todayShow[index].descendants}
-                  to={`comment/${todayShow[index].id}`}
+                  link={todayShow[index].id}
                 />
               </User>
             </div>

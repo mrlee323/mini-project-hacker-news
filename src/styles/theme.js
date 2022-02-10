@@ -16,7 +16,7 @@ export const lightTheme = {
   userSmallIcon: '#727272',
   topbackColor: '#efefef',
   topBoxBorderColor: '1px solid #DFDFDF',
-  commentPadding: '1.2rem 1rem',
+  jobBannerBackground: `linear-gradient(360deg, #FFFFFF 21.12%, rgba(255, 255, 255, 0.8) 51.24%, rgba(255, 255, 255, 0) 86.3%)`,
 };
 
 export const darkTheme = {
@@ -36,7 +36,12 @@ export const darkTheme = {
   userSmallIcon: '#949494',
   topbackColor: '#343538',
   topBoxBorderColor: 'none',
-  commentPadding: '1.2rem 0',
+  jobBannerBackground: `linear-gradient(
+      360deg,
+      #292c33 0%,
+      rgba(41, 44, 51, 0.4) 45.84%,
+      rgba(41, 44, 51, 0.05) 86.3%
+    )`,
 };
 
 export const theme = {

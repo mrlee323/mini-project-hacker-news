@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { CardBox, ListBox } from './common/Box';
 import { Comment } from './common/Comment';
 import { IconPointTime, PointTime } from './common/PointTime';
 import UserInfo from './common/UserInfo';
 import TitleColor from './common/TitleColor';
+import { NavLink } from 'react-router-dom';
 
 const ListUser = styled.div`
   display: flex;
@@ -37,13 +37,18 @@ const TopPostItem = ({ viewMode, post }) => {
               <h3 style={{ height: '3.1rem' }}>
                 <TitleColor title={title} url={url} />
               </h3>
-
               <ListUser>
                 <div className="info">
-                  <UserInfo id={by} />
+                  <NavLink
+                    to={`/user/${by}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <UserInfo id={by} />
+                  </NavLink>
+
                   <PointTime time={time} score={score} />
                 </div>
-                <Comment count={descendants} />
+                <Comment count={descendants} link={id} />
               </ListUser>
             </ListBox>
           )
@@ -56,7 +61,7 @@ const TopPostItem = ({ viewMode, post }) => {
                 <IconPointTime time={time} score={score} />
                 <div className="info">
                   <UserInfo className="id" id={by} />
-                  <Comment count={descendants} link={`/comment/${id}`} />
+                  <Comment count={descendants} link={id} />
                 </div>
               </CardUser>
             </CardBox>

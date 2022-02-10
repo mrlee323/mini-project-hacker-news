@@ -1,13 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import { CardBox, ListBox } from './common/Box';
 import { Comment } from './common/Comment';
 import { IconPointTime, PointTime } from './common/PointTime';
 import UserInfo from './common/UserInfo';
-import { ReactComponent as Github } from '../assets/github.svg';
 import UrlIcon from './common/UrlIcon';
 import TitleColor from './common/TitleColor';
+import { NavLink } from 'react-router-dom';
 
 const StyledBox = styled(ListBox)`
   padding-top: 0.9rem;
@@ -33,9 +32,7 @@ const CardUser = styled.div`
   .info {
     display: flex;
     align-items: center;
-    .id {
-      flex: 1;
-    }
+    justify-content: space-between;
   }
 `;
 
@@ -51,13 +48,18 @@ const NewItem = ({ viewMode, news }) => {
               <h3 style={{ margin: url ? '.7rem 0 1.5rem' : '.5rem 0 2.5rem' }}>
                 <TitleColor title={title} url={url} />
               </h3>
-
               <ListUser>
                 <div className="info">
-                  <UserInfo id={by} />
+                  <NavLink
+                    to={`/user/${by}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <UserInfo id={by} />
+                  </NavLink>
+
                   <PointTime time={time} score={score} />
                 </div>
-                <Comment count={descendants} link={`/comment/${id}`} />
+                <Comment count={descendants} link={id} />
               </ListUser>
             </StyledBox>
           )
@@ -72,8 +74,13 @@ const NewItem = ({ viewMode, news }) => {
               <CardUser>
                 <IconPointTime time={time} score={score} />
                 <div className="info">
-                  <UserInfo className="id" id={by} />
-                  <Comment count={descendants} link={`/comment/${id}`} />
+                  <NavLink
+                    to={`/user/${by}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <UserInfo id={by} className="id" />
+                  </NavLink>
+                  <Comment count={descendants} link={id} />
                 </div>
               </CardUser>
             </CardBox>

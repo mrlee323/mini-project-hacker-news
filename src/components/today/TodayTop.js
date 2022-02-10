@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import { agoTime } from '../../utils/time';
 import TodayTitle from './TodayTitle';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { PointTime } from '../common/PointTime';
+import TitleColor from '../common/TitleColor';
 
 const TodayTopBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -78,7 +78,7 @@ const TodayTopBlock = styled(Responsive)`
 `;
 
 const TodayTop = ({ todayTop }) => {
-  const pages = [5, 10, 15];
+  const pages = [0, 5, 10];
   return (
     <TodayTopBlock>
       <TodayTitle link={'/top/post'}>Today's Top</TodayTitle>
@@ -88,11 +88,15 @@ const TodayTop = ({ todayTop }) => {
             <SwiperSlide key={index}>
               <div className="top">
                 {todayTop &&
-                  todayTop.slice(5 * index, page).map((data, index) => (
+                  todayTop.slice(page, page + 5).map((data, i) => (
                     <div className="list" key={data.id}>
-                      <div className="rank">{index + 1}</div>
+                      <div className="rank">{page + i + 1}</div>
                       <div className="text">
-                        <div className="title">{data.title}</div>
+                        <div className="title">
+                          {data.title && (
+                            <TitleColor title={data.title} url={data.url} />
+                          )}
+                        </div>
                         <div className="info">
                           <span>{data.by}</span>
                           <PointTime

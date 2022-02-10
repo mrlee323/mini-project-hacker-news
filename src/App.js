@@ -22,15 +22,25 @@ import UserComment from './pages/UserComment';
 import UserFavorite from './pages/UserFavorite';
 import { getShowData } from './modules/show';
 import { getNewData } from './modules/news';
+import { getAskData } from './modules/ask';
+import { getJobData } from './modules/job';
+import ScrollTopButton from './components/common/ScrollTopButton';
 
 function App() {
   const dispatch = useDispatch();
   const totalData = useSelector((state) => state);
+
+  const getData = async () => {
+    await dispatch(getTopData())
+      .then(() => dispatch(getShowData()))
+      .then(() => dispatch(getJobData()))
+      .then(() => dispatch(getAskData()))
+      .then(() => dispatch(getNewData()))
+      .then(() => dispatch(getUserData()));
+  };
+
   useEffect(() => {
-    // dispatch(getShowData());
-    dispatch(getTopData());
-    dispatch(getUserData());
-    // dispatch(getNewData());
+    getData();
     return totalData;
   }, [dispatch]);
 
@@ -56,6 +66,7 @@ function App() {
         <Route path="comment/:id" element={<Comment />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ScrollTopButton position={1000} />
     </>
   );
 }

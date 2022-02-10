@@ -1,16 +1,47 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ShowItem from '../components/ShowItem';
-import { getStory } from '../services/API';
 
 const ShowContainerBlock = styled.div`
   padding: 0 1.25rem;
+
+  ${(props) =>
+    props.viewMode === 'card' &&
+    css`
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    `}
 `;
 
-const ShowContainer = ({ viewMode }) => {
+const ShowContainer = ({
+  viewMode,
+  currentPage,
+  shows,
+  sortData,
+  resultSortType,
+}) => {
+  const lastIndex = currentPage * 20;
+  const firstIndex = lastIndex - 20;
   return (
-    <ShowContainerBlock>
-      <ShowItem viewMode={viewMode} />
+    <ShowContainerBlock viewMode={viewMode}>
+      {shows &&
+        resultSortType !== 'karma' &&
+        sortData
+          .slice(firstIndex, lastIndex)
+          .map((show) => (
+            <ShowItem viewMode={viewMode} show={show} key={show.id} />
+          ))}
+      {shows &&
+        resultSortType === 'karma' &&
+        sortData.map((by) =>
+          shows.map(
+            (show) =>
+              by === show.by && (
+                <ShowItem viewMode={viewMode} show={show} key={show.id} />
+              ),
+          ),
+        )}
     </ShowContainerBlock>
   );
 };

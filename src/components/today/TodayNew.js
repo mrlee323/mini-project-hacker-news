@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as UserIcon } from '../../assets/user.svg';
 import Responsive from '../common/Responsive';
 import TodayTitle from './TodayTitle';
 import { agoTime } from '../../utils/time';
+import { PointTime } from '../common/PointTime';
+import TitleColor from '../common/TitleColor';
+import random from '../../utils/random';
 
 const TodayNewBlock = styled(Responsive)`
   background: ${({ theme }) => theme.navColor};
@@ -20,6 +23,7 @@ const TodayNewBlock = styled(Responsive)`
     box-sizing: border-box;
 
     .list {
+      height: 7.8rem;
       padding: 0.9rem 0;
       box-sizing: border-box;
       border-bottom: ${({ theme }) => theme.borderColor};
@@ -33,7 +37,7 @@ const TodayNewBlock = styled(Responsive)`
         border-radius: 0.7rem;
         padding: 0.3rem 0.5rem;
         box-sizing: border-box;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
       }
       .title {
         font-weight: 600;
@@ -62,48 +66,46 @@ const TodayNewBlock = styled(Responsive)`
   }
 `;
 
-const TodayNew = ({ news }) => {
+const Time = styled(PointTime)`
+  margin: 0;
+  .score {
+    display: none;
+  }
+`;
+
+const TodayNew = ({ todayNew }) => {
+  const [randomArray, setRandomArray] = useState([1, 2, 3, 4, 5]);
+
+  const onRandom = () => {
+    setRandomArray(random(todayNew));
+  };
   return (
     <TodayNewBlock>
-      <TodayTitle link={'/new'}>Today's New</TodayTitle>
+      <TodayTitle link={'/new'} onRandom={onRandom}>
+        Today's New
+      </TodayTitle>
       <div className="new">
-        <div className="list">
-          <div>
-            <div className="time">1 minutes ago</div>
-            <div className="title">오늘 안에는 정리끝낼수 있겠지</div>
-            <div className="user">
-              <UserIcon fill="#727272" />
-              <div className="id">alfla6528</div>
-            </div>
-          </div>
-        </div>
-        <div className="list">
-          <div>
-            <div className="time">1 minutes ago</div>
-            <div className="title">오늘 안에는 정리끝낼수 있겠지</div>
-            <div className="user">
-              <UserIcon fill="#727272" />
-              <div className="id">alfla6528</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <ul className="new">
-        {news &&
-          news.map((item, index) => (
-            <li key={index}>
-              <ul className="list">
-                <li className="time">{agoTime(item.time)}</li>
-                <li className="title">{item.title}</li>
-                <li className="user">
+        {todayNew.length >= 500 &&
+          randomArray.map((index) => (
+            <div className="list" key={todayNew[index].id}>
+              <div>
+                <Time time={todayNew[index].time} />
+                <div className="title">
+                  {todayNew[index].title !== undefined && (
+                    <TitleColor
+                      title={todayNew[index].title}
+                      url={todayNew[index].url}
+                    />
+                  )}
+                </div>
+                <div className="user">
                   <UserIcon fill="#727272" />
-                  <div className="id">{item.by}</div>
-                </li>
-              </ul>
-            </li>
+                  <div className="id">{todayNew[index].by}</div>
+                </div>
+              </div>
+            </div>
           ))}
-      </ul>
-       */}
+      </div>
     </TodayNewBlock>
   );
 };

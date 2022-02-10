@@ -15,7 +15,7 @@ const CommentBlock = styled.div`
 `;
 export const Comment = ({ count, link, ...rest }) => {
   return (
-    <NavLink to={`${link}`} style={{ textDecoration: 'none' }}>
+    <NavLink to={`/comment/${link}`} style={{ textDecoration: 'none' }}>
       <CommentBlock {...rest}>
         <Comments />
         <div className="count">{count}</div>

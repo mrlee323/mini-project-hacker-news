@@ -1,7 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../assets/arrow_select.svg';
-import { daySort, karmaSort, sortData, weeklySort } from '../../utils/sort';
+import {
+  daySort,
+  karmaSort,
+  sortData,
+  timeSort,
+  weeklySort,
+} from '../../utils/sort';
 
 const DropDownBlock = styled.div`
   display: flex;
@@ -45,14 +51,7 @@ const Time = styled(Results)`
   }
 `;
 
-const DropDown = ({
-  setSortData,
-  setResultSortType,
-  setTimeSortType,
-  data,
-  user,
-  ...rest
-}) => {
+const DropDown = ({ setSortData, setResultSortType, data, user, ...rest }) => {
   const [typeValue, setTypeValue] = useState({
     result: 'results',
     time: 'time',
@@ -66,7 +65,6 @@ const DropDown = ({
         value === 'karma' ? karmaSort(user) : sortData(data, value);
       setSortData(sortedData);
       setResultSortType(`${value}`);
-      setTimeSortType('time');
       timesort.current.options[0].selected = true;
       setTypeValue({ result: `${value}`, time: 'time' });
     },
@@ -78,13 +76,11 @@ const DropDown = ({
       const value = e.target.value;
       const sortedData =
         value === 'time'
-          ? data
+          ? timeSort(data, typeValue.result)
           : value === 'day'
           ? daySort(data, typeValue.result)
           : weeklySort(data, typeValue.result);
-      console.log('onchange', sortedData);
       setSortData(sortedData);
-      setTimeSortType(`${value}`);
       setTypeValue({ result: typeValue.result, time: `${value}` });
     },
     [typeValue],
