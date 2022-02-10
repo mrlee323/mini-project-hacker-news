@@ -4,8 +4,9 @@ import { ReactComponent as Banner } from '../assets/banner_ask.svg';
 import DropDown from '../components/common/DropDown';
 import AskContainer from '../containers/AskContainer';
 import PaginationButton from '../components/common/PaginationButton';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getAskUser } from '../modules/user';
 
 const AskBlock = styled(Responsive)``;
 
@@ -16,11 +17,16 @@ const StyledDropDown = styled(DropDown)`
 
 const Ask = () => {
   const asks = useSelector((state) => state.ask.asks);
-  const user = useSelector((state) => state.user.users);
+  const user = useSelector((state) => state.otherUser.otherUsers.askUsers);
   const count = asks && asks.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState(asks);
   const [resultSortType, setResultSortType] = useState('results');
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAskUser());
+  }, []);
 
   return (
     <section className="ask">

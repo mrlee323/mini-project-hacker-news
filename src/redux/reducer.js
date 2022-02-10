@@ -7,6 +7,7 @@ import show from '../modules/show';
 import news from '../modules/news';
 import ask from '../modules/ask';
 import job from '../modules/job';
+import { otherUser } from '../modules/user';
 import userInfo from '../modules/userInfo';
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   job,
   user,
   userInfo,
+  otherUser,
 });
 
 export default rootReducer;

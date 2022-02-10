@@ -31,15 +31,6 @@ const TodayShowBlock = styled(Responsive)`
       background: #eaf4f8;
       padding: 1rem 0.75rem;
       box-sizing: border-box;
-      .github {
-        path {
-          &:first-child {
-            fill: #f49664;
-          }
-          &:last-child {
-            fill: #f5f5f5;
-          }
-        }
       }
       .title {
         height: 6.4rem;
@@ -59,6 +50,14 @@ const User = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 2.7rem;
+  .user {
+    .user-icon {
+      fill: #727272;
+    }
+    .id {
+      color: #727272;
+    }
+  }
 `;
 const TodayShow = ({ todayShow }) => {
   const [randomArray, setRandomArray] = useState([1, 2, 3, 4, 5]);
@@ -95,7 +94,7 @@ const TodayShow = ({ todayShow }) => {
                 time={todayShow[index].time}
               />
               <User>
-                <UserInfo id={todayShow[index].by} />
+                <UserInfo id={todayShow[index].by} className="user" />
                 <Comment
                   count={todayShow[index].descendants}
                   link={todayShow[index].id}

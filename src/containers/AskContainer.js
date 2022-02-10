@@ -17,9 +17,9 @@ const AskContainer = ({ currentPage, sortData, asks, resultSortType }) => {
       {asks &&
         resultSortType === 'karma' &&
         sortData.map((by) =>
-          asks.map(
-            (ask) => by === ask.by && <AskItem ask={ask} key={ask.id} />,
-          ),
+          asks
+            .slice(firstIndex, lastIndex)
+            .map((ask) => by === ask.by && <AskItem ask={ask} key={ask.id} />),
         )}
       <AskItem />
     </AskContainerBlock>

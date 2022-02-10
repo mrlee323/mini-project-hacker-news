@@ -35,12 +35,14 @@ const ShowContainer = ({
       {shows &&
         resultSortType === 'karma' &&
         sortData.map((by) =>
-          shows.map(
-            (show) =>
-              by === show.by && (
-                <ShowItem viewMode={viewMode} show={show} key={show.id} />
-              ),
-          ),
+          shows
+            .slice(firstIndex, lastIndex)
+            .map(
+              (show) =>
+                by === show.by && (
+                  <ShowItem viewMode={viewMode} show={show} key={show.id} />
+                ),
+            ),
         )}
     </ShowContainerBlock>
   );

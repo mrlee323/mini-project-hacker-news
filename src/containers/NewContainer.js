@@ -35,12 +35,14 @@ const NewContainer = ({
       {data &&
         resultSortType === 'karma' &&
         sortData.map((by) =>
-          data.map(
-            (news) =>
-              by === news.by && (
-                <NewItem viewMode={viewMode} news={news} key={news.id} />
-              ),
-          ),
+          data
+            .slice(firstIndex, lastIndex)
+            .map(
+              (news) =>
+                by === news.by && (
+                  <NewItem viewMode={viewMode} news={news} key={news.id} />
+                ),
+            ),
         )}
     </NewContainerBlock>
   );

@@ -3,15 +3,21 @@ import { PointTime } from '../components/common/PointTime';
 import Responsive from '../components/common/Responsive';
 import { ReactComponent as UserIcon } from '../assets/user.svg';
 import TitleColor from '../components/common/TitleColor';
-import { Comment as CommentIcon } from '../components/common/Comment';
 import CommentContainer from '../containers/CommentContainer';
-import { useParams } from '../../node_modules/react-router/index';
-import { getStory, storyUrl } from '../services/API';
+import { useNavigate, useParams } from 'react-router';
+import { getStory } from '../services/API';
 import { useEffect, useState } from 'react';
 import replaceText from '../utils/replaceText';
 
 const CommentBlock = styled(Responsive)`
   background: ${({ theme }) => theme.topbackColor};
+  .button {
+    background: ${({ theme }) => theme.navColor};
+    height: 9.6rem;
+    padding: 2.9rem 9rem;
+    box-sizing: border-box;
+    point: cursor;
+  }
 `;
 const Main = styled.div`
   background: ${({ theme }) => theme.navColor};
@@ -117,14 +123,28 @@ const Comments = styled.div`
     }
   }
 `;
-
+const BackButton = styled.div`
+  width: 6.5rem;
+  height: 2.6rem;
+  border: 1px solid ${({ theme }) => theme.userIcon};
+  font-size: 1rem;
+  color: ${({ theme }) => theme.textColor};
+  border-radius: 2.2rem;
+  padding: 0.7rem 2.2rem;
+  box-sizing: border-box;
+  margin: 0; auto;
+`;
 const Comment = () => {
   const params = useParams().id;
   const [data, setData] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     getStory(params).then((story) => story && setData(story));
   }, []);
 
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <CommentBlock>
       {data !== {} && (
@@ -154,6 +174,9 @@ const Comment = () => {
               commentCount={data.descendants || (data.kids && data.kids.length)}
             />
           </Comments>
+          <div className="button">
+            <BackButton onClick={goBack}>Back</BackButton>
+          </div>
         </>
       )}
     </CommentBlock>

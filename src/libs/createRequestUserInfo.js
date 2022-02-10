@@ -5,7 +5,6 @@ const createRequestUserInfo = (type, request, fetchUser, id) => {
   const FAILURE = `${type}_FAILURE`;
 
   return async (dispatch) => {
-    console.log(1, type, 2, request, 3, fetchUser, 4, id);
     dispatch({ type });
     dispatch(startLoading(type));
     try {
