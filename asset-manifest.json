@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/mini-project-hacker-news/static/css/main.08ba737e.css",
-    "main.js": "/mini-project-hacker-news/static/js/main.43d27fee.js",
+    "main.js": "/mini-project-hacker-news/static/js/main.69fa2c8d.js",
     "static/js/787.2cb9292d.chunk.js": "/mini-project-hacker-news/static/js/787.2cb9292d.chunk.js",
     "static/media/banner_apply2.svg": "/mini-project-hacker-news/static/media/banner_apply2.c18702c38e2fb3dcf1980f11e9ef3011.svg",
     "static/media/banner_new.svg": "/mini-project-hacker-news/static/media/banner_new.b5aff82f95510a44edc959e9cd9fcc6e.svg",
@@ -39,11 +39,11 @@
     "static/media/arrow_right.svg": "/mini-project-hacker-news/static/media/arrow_right.01b07a6ecbc67252dcbe8992d378bfeb.svg",
     "static/media/arrow_up.svg": "/mini-project-hacker-news/static/media/arrow_up.bc27bbd9c0454bfd31e08a44b9697c9e.svg",
     "main.08ba737e.css.map": "/mini-project-hacker-news/static/css/main.08ba737e.css.map",
-    "main.43d27fee.js.map": "/mini-project-hacker-news/static/js/main.43d27fee.js.map",
+    "main.69fa2c8d.js.map": "/mini-project-hacker-news/static/js/main.69fa2c8d.js.map",
     "787.2cb9292d.chunk.js.map": "/mini-project-hacker-news/static/js/787.2cb9292d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.08ba737e.css",
-    "static/js/main.43d27fee.js"
+    "static/js/main.69fa2c8d.js"
   ]
 }
