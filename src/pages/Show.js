@@ -3,10 +3,9 @@ import Responsive from '../components/common/Responsive';
 import { ReactComponent as Banner } from '../assets/banner_show.svg';
 import SortMode from '../components/common/SortMode';
 import ShowContainer from '../containers/ShowContainer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PaginationButton from '../components/common/PaginationButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { getShowUser } from '../modules/user';
+import { useSelector } from 'react-redux';
 
 const ShowBlock = styled(Responsive)``;
 
@@ -18,11 +17,6 @@ const Show = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState(shows);
   const [resultSortType, setResultSortType] = useState('results');
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getShowUser());
-  }, []);
 
   return (
     <section className="show">

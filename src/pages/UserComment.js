@@ -55,12 +55,7 @@ const UserComment = () => {
                 <UserInfo id={data.by} />
                 <Time time={data.time} />
               </div>
-              {data.kids && (
-                <Comment
-                  count={data.kids.length}
-                  link={`/comment/${data.id}`}
-                />
-              )}
+              {data.kids && <Comment count={data.kids.length} link={data.id} />}
             </User>
           </ComentBox>
         ))

@@ -32,7 +32,7 @@ export const timeSort = (data, value) => {
 export const daySort = (data, multiSort) => {
   const today = parseInt(Date.now() / 1000);
   const array = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 10; i++) {
     const arr = data.filter(
       (item) =>
         item.time >= today - 86400 * (i + 1) && item.time <= today - 86400 * i,

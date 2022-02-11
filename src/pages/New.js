@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import Responsive from '../components/common/Responsive';
 import { ReactComponent as Banner } from '../assets/banner_new.svg';
 import SortMode from '../components/common/SortMode';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NewContainer from '../containers/NewContainer';
 import PaginationButton from '../components/common/PaginationButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNewUser } from '../modules/user';
+import { useSelector } from 'react-redux';
 
 const NewBlock = styled(Responsive)``;
 
@@ -18,11 +17,6 @@ const New = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState(news);
   const [resultSortType, setResultSortType] = useState('results');
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getNewUser());
-  }, []);
 
   return (
     <section className="new">

@@ -16,7 +16,12 @@ import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTopData } from './modules/top';
-import { getUserData } from './modules/user';
+import {
+  getAskUser,
+  getNewUser,
+  getShowUser,
+  getUserData,
+} from './modules/user';
 import UserSubmission from './pages/UserSubmission';
 import UserComment from './pages/UserComment';
 import UserFavorite from './pages/UserFavorite';
@@ -36,7 +41,10 @@ function App() {
       .then(() => dispatch(getJobData()))
       .then(() => dispatch(getAskData()))
       .then(() => dispatch(getNewData()))
-      .then(() => dispatch(getUserData()));
+      .then(() => dispatch(getUserData()))
+      .then(() => dispatch(getShowUser()))
+      .then(() => dispatch(getAskUser()))
+      .then(() => dispatch(getNewUser()));
   };
 
   useEffect(() => {

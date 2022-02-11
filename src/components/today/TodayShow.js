@@ -72,7 +72,7 @@ const TodayShow = ({ todayShow }) => {
         Today's Show
       </TodayTitle>
       <div className="show">
-        {todayShow.length >= 55 &&
+        {todayShow.length > 40 &&
           randomArray.map((index) => (
             <div className="list" key={index}>
               {todayShow[index].url && <UrlIcon url={todayShow[index].url} />}
