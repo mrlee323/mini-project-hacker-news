@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import ShowItem from '../components/ShowItem';
+import { karmaDaySort } from '../utils/sort';
 
 const ShowContainerBlock = styled.div`
   padding: 0 1.25rem;

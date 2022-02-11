@@ -66,3 +66,17 @@ export const weeklySort = (data, multiSort) => {
   const result = [].concat.apply([], array);
   return result;
 };
+
+// export const karmaDaySort = (data) => {
+//   const today = parseInt(Date.now() / 1000);
+//   const array = [];
+//   for (let i = 0; i < 10; i++) {
+//     const arr = data.filter(
+//       (item) =>
+//         item.time >= today - 86400 * (i + 1) && item.time <= today - 86400 * i,
+//     );
+//     arr.length !== 0 && array.push(arr)
+//   }
+//   const result = [].concat.apply([], array);
+//   return result;
+// };

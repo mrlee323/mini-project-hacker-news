@@ -99,8 +99,18 @@ const DropDown = ({ setSortData, setResultSortType, data, user, ...rest }) => {
       <Time>
         <select onChange={onTimeChange} ref={timesort}>
           <option value="time">Time</option>
-          <option value="day">Day</option>
-          <option value="weeks">Weeks</option>
+          <option
+            value="day"
+            style={{ display: typeValue.result === 'karma' && 'none' }}
+          >
+            Day
+          </option>
+          <option
+            value="weeks"
+            style={{ display: typeValue.result === 'karma' && 'none' }}
+          >
+            Weeks
+          </option>
         </select>
       </Time>
     </DropDownBlock>

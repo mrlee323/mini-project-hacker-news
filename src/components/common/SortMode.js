@@ -26,7 +26,6 @@ const SortMode = (props) => {
     <SortModeBlock {...rest}>
       <DropDown
         setResultSortType={setResultSortType}
-        setTimeSortType={setTimeSortType}
         setSortData={setSortData}
         data={data}
         user={user}
