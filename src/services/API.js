@@ -59,6 +59,3 @@ export const getJobIds = async () => {
   const result = await axios.get(jobUrl).then(({ data }) => data);
   return result;
 };
-
-// export const storyUrl = (id) => axios.get(`${baseUrl}item/${id}.json`);
-// export const userUrl = (id) => axios.get(`${baseUrl}user/${id}.json`);

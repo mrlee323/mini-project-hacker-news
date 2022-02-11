@@ -76,12 +76,12 @@ const TodayJob = ({ todayJob }) => {
       <TodayTitle link={'/job'}>Today's Job</TodayTitle>
       <Swiper
         slidesPerView={1.6}
-        // loop={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
-        // modules={[Autoplay]}
+        loop={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}
         className="mySwiper"
       >
         {randomArray.map(
