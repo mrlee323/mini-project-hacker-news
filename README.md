@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Hacker news 미니프로젝트 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 해커뉴스 Reader 사이트 개발
 
-## Available Scripts
+2022.01.26 ~ 2022.02.11(2주 개인프로젝트 -UI/UX 협엽)
 
-In the project directory, you can run:
+## [배포](https://mrlee323.github.io/mini-project-hacker-news)
 
-### `yarn start`
+## 요약
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Y Combinator에서 운영하고 있는 소셜 뉴스 웹사이트 해커뉴스의 글을 읽을 수 있는 모바일 전용 Reader
+사이트를 개발. Top, New, Show, Ask, Jobs 총 5가지 주제 별로 글 목록 조회가 가능하며 연결된 글의
+내용과 글에 연결된 코멘트와 작성자의 정보를 볼 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 기능구현
 
-### `yarn test`
+1. 각 주제와 페이지에 맞는 글 목록을 조회할 수 있습니다.
+    - 유저가 선택한 주제에 맞춰 알맞은 페이지의 글 목록을 조회해서 보여줍니다.
+  
+2. 선택한 글의 내용과 코멘트 목록을 볼 수 있다.
+    - 조회한 글 목록에서 글을 클릭하면 연결된 링크를 새로운 탭으로 열람해야 합니다.
+    - 또한 코멘트 개수를 클릭하면 글에 연결된 코멘트 목록을 볼 수 있습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. 글을 작성한 유저의 정보를 볼 수 있다.
+    - 조회한 글 목록에서 유저 이름을 클릭하면 유저의 정보를 볼 수 있습니다.
 
-### `yarn build`
+## 실행 방법
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+# install
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# run
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 구현 상세
 
-### `yarn eject`
+### 랜딩페이지 
+- Homd.jsx
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/92876884/183937395-06b68c3e-94eb-4972-882a-f38c6f9a3bc3.gif"/>
+</p>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 랜딩 페이지에는 각 카테고리의 랭크 또는 일부를 가져와 보여줍니다.
+- nav bar 를 통해 각페이지로 이동할수 있으며, today title으로도 이동가능합니다.
+- 다크모드 아이콘을 통해 라이드모드/다크모드를 변경할수 있습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 각 페이지 공통 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/92876884/183949958-1eea51a9-1b3d-40b5-8685-45cecd442709.gif"/>
+  <img src="https://user-images.githubusercontent.com/92876884/183949972-0da0c85e-5d30-478d-8cfc-0a5c5854a7ed.gif"/>
+</p>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- post는 commnent/points/user의 karma 순으로 정렬이 가능합니다.
+- 날짜기준으로 하루/일주일 기준으로 정렬이 가능합니다.
+- post의 형태를 리스트형/카드형 두가지로 변경이 가능합니다.
+- card 클릭시 Top/New 페에지 해당링크로 이동 Show/Ask 게시글로 이동합니다.
+- comment클릭시 해당포스트의 comment를 보여줍니다.
+- user클릭시 user 정보를 보여줍니다.
 
-## Learn More
+### Top 페이지
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/92876884/183949991-3d2e7202-3ab9-4d2e-9d32-0af3f22c27de.gif"/>
+</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 슬라이드 버튼에서 user를 누르면 karma가 높은순의 user랭크를 보여줍니다.
 
-### Code Splitting
+### Job 페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/92876884/183953132-296fb266-0b65-429f-9c81-e096daadad23.gif"/>
+</p>
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- apply 클릭시 해당 링크 이동 
+- 랜덤으로 슬라이드 형식의 job post 를 보여줍니다.
